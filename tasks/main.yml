@@ -2,7 +2,7 @@
 - name: Install gems
   gem:
     name: "{{ item.key }}"
-    state: "{{ item.version"
+    state: "{{ item.version }}"
     user_install: False
   with_dict: "{{ gems }}"
 
