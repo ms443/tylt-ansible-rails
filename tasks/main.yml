@@ -1,8 +1,10 @@
 ---
-- gem:
-    name: unicorn
-    state: latest
+- name: Install gems
+  gem:
+    name: "{{ item.key }}"
+    state: "{{ item.version"
     user_install: False
+  with_dict: "{{ gems }}"
 
 - name: Creating project_root directory
   file:
