@@ -2,7 +2,7 @@
 - gem:
     name: unicorn
     state: latest
-    user_install: no
+    user_install: False
 
 - name: Creating project_root directory
   file:
