@@ -30,7 +30,8 @@
     mode: 0755
   with_items:
     - "{{ working_dir }}/current"
-    - "{{ working_dir }}/shared"
+    - "{{ working_dir }}/shared/log"
+    - "{{ working_dir }}/shared/tmp/pids"
 
 - name: Copy all node data
   command: "cp -r /tmp/railsapp/. {{ working_dir }}/current"
