@@ -25,7 +25,7 @@
 
 - name: Creating project_root directory
   file:
-    path: /var/www
+    path: "{{ item }}"
     state: directory
     mode: 0755
   with_items:
@@ -33,7 +33,7 @@
     - "{{ working_dir }}/shared"
 
 - name: Copy all node data
-  command: "cp -r /tmp/railsapp {{ working_dir }}/current"
+  command: "cp -r /tmp/railsapp/* {{ working_dir }}/current"
 
 - name: Install all gems
   bundler:
