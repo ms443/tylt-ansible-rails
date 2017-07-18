@@ -16,6 +16,7 @@
   with_items:
       - git
       - libpq-dev
+      - libcurl4-openssl-dev
 
 - name: Install bundler 
   gem:
