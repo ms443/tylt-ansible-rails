@@ -1,10 +1,16 @@
 ---
-- name: Install gems
+#- name: Install gems
+#  gem:
+#    name: "{{ item.key }}"
+#    version: "{{ item.value.version }}"
+#    user_install: False
+#  with_dict: "{{ gems }}"
+
+- name: Install bundler 
   gem:
-    name: "{{ item.key }}"
-    version: "{{ item.value.version }}"
-    user_install: False
-  with_dict: "{{ gems }}"
+    name: bundler
+    version: 1.15.2 
+    user_install: false
 
 - name: Creating project_root directory
   file:
@@ -14,3 +20,9 @@
 
 - name: Copy all node data
   command: cp -r /tmp/railsapp/ /var/www
+
+- name: Install all gems
+  bundler:
+    state: present
+    gemfile: /var/www/railsapp/Gemfile
+    user_install: false
