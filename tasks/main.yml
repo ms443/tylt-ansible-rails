@@ -6,10 +6,21 @@
 #    user_install: False
 #  with_dict: "{{ gems }}"
 
+- name: Ensure apt cache is up to date
+  apt:
+    update_cache: yes
+
+- name: ensure packages are installed
+  apt:
+    name: "{{item}}"
+  with_items:
+      - git
+      - libpq-dev
+
 - name: Install bundler 
   gem:
     name: bundler
-    version: 1.15.2 
+    state: latest
     user_install: false
 
 - name: Creating project_root directory
