@@ -38,5 +38,5 @@
 - name: Install all gems
   bundler:
     state: present
-    gemfile: {{ working_dir }}/current/Gemfile
+    gemfile: "{{ working_dir }}/current/Gemfile"
     user_install: false
