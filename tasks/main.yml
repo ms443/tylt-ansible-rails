@@ -1,11 +1,4 @@
 ---
-#- name: Install gems
-#  gem:
-#    name: "{{ item.key }}"
-#    version: "{{ item.value.version }}"
-#    user_install: False
-#  with_dict: "{{ gems }}"
-
 - name: Ensure apt cache is up to date
   apt:
     update_cache: yes
@@ -36,8 +29,8 @@
 - name: Copy all node data
   command: "cp -r /tmp/railsapp/. {{ working_dir }}/current"
 
-- name: Install all gems
-  bundler:
-    state: present
-    gemfile: "{{ working_dir }}/current/Gemfile"
-    user_install: false
+#- name: Install all gems
+#  bundler:
+#    state: present
+#    gemfile: "{{ working_dir }}/current/Gemfile"
+#    user_install: false
