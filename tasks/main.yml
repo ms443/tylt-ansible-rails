@@ -1,5 +1,5 @@
 ---
-- name: ensure packages are installed
+- name: Ensure packages are installed
   apt:
     name: "{{ item }}"
   with_items:
@@ -8,12 +8,11 @@
       - libpq-dev
       - libcurl4-openssl-dev
 
-- name: ensure packages are installed
+- name: Install additional packages 
   apt:
     name: "{{ item.key }}={{ item.version }}"
   when: additional_packages
-  with_dict:
-    - "{{ additional_packages }}"
+  with_dict: additional_packages
 
 - name: Install bundler 
   gem:
