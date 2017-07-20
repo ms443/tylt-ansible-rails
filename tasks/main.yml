@@ -23,14 +23,13 @@
     - "{{ working_dir }}/current/tmp/pids"
 
 - name: Copy all rails data
-  synchronize:
-    src: "/tmp/railsapp/"
-    dest: "{{ working_dir }}/current/"
-    owner: no
-    times: no
-    checksum: yes
-  become: true
-  delegate_to: localhost
+  local_action:
+    synchronize:
+      src: "/tmp/railsapp/"
+      dest: "{{ working_dir }}/current/"
+      owner: no
+      times: no
+      checksum: yes
 
 - name: Install all gems
   bundler:
