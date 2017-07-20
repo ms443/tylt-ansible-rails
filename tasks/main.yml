@@ -8,6 +8,13 @@
       - libpq-dev
       - libcurl4-openssl-dev
 
+- name: ensure packages are installed
+  apt:
+    name: "{{ item.key }}={{ item.version }}"
+  when: additional_packages
+  with_dict:
+    - "{{ additional_packages }}"
+
 - name: Install bundler 
   gem:
     name: bundler
