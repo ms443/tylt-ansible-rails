@@ -4,6 +4,7 @@
     name: "{{ item }}"
   with_items:
       - git
+      - rsync
       - libpq-dev
       - libcurl4-openssl-dev
 
@@ -23,6 +24,12 @@
 
 - name: Copy all node data
   command: "cp -fr /tmp/railsapp/. {{ working_dir }}/current"
+  synchronize:
+    src: "/tmp/railsapp/"
+    dest: "{{ working_dir }}/current/"
+    owner: no
+    times: no
+    checksum: yes
 
 - name: Install all gems
   bundler:
