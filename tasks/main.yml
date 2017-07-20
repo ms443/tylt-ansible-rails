@@ -24,8 +24,8 @@
 
 - name: Copy all rails data
   synchronize:
-    src: "/tmp/railsapp/"
-    dest: "{{ working_dir }}/current/"
+    src: "/tmp/railsapp"
+    dest: "{{ working_dir }}/current"
     owner: no
     times: no
     checksum: yes
