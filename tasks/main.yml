@@ -29,8 +29,3 @@
     state: present
     gemfile: "{{ working_dir }}/current/Gemfile"
     user_install: false
-
-- name: Precompile asse
-  command: chdir="{{ working_dir }}/current" bundle exec rake assets:precompile
-  environment:
-    RAILS_ENV: kube
