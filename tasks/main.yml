@@ -29,7 +29,8 @@
     owner: no
     times: no
     checksum: yes
-  delegate_to: 127.0.0.1
+  become: true
+  delegate_to: localhost
 
 - name: Install all gems
   bundler:
