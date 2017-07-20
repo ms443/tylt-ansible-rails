@@ -27,8 +27,8 @@
   copy:
     src: /tmp/railsapp/
     dest: "{{ working_dir }}/current/"
-    remote_src=yes
-    directory_mode=yes
+    remote_src: yes
+    directory_mode: yes
 
 - name: Install all gems
   bundler:
