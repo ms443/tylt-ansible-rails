@@ -23,17 +23,15 @@
 
 - name: Creating project_root directory
   file:
-    path: "/data/apps/tylt/current/tmp/pids"
+    path: /var/www
     state: directory
     mode: 0755
-  with_items:
-    - "/data/apps/tylt/current/tmp/pids"
 
-- name: Copy all rails data
-  command: "rsync -au /tmp/railsapp/ /data/apps/tylt/current/"
+- name: Copy all node data
+  command: rsync -au /tmp/railsapp/ /var/www/
 
 - name: Install all gems
   bundler:
     state: present
-    gemfile: "/data/apps/tylt/current/Gemfile"
+    gemfile: "/var/www/Gemfile"
     user_install: false
