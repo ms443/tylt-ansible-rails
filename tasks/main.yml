@@ -1,6 +1,9 @@
 ---
-- name: Update apt cache
-  raw: 'apt-get -o "APT::Sandbox::User=root" update'
+- name: Use root as Sandbox user for apt
+  lineinfile:
+    dest: /etc/apt/apt.conf.d/70debconf
+    line: 'APT::Sandbox::User "root";'
+    state: present
 
 - name: Ensure packages are installed
   apt:
