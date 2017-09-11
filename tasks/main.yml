@@ -34,7 +34,7 @@
     mode: 0755
 
 - name: Copy all node data
-  command: rsync -auvh /tmp/railsapp/ /var/www/
+  command: rsync -auvh --chown=root:root /tmp/railsapp/ /var/www/
 
 - name: Install all gems
   bundler:
