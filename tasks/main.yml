@@ -16,6 +16,11 @@
       - libcurl4-openssl-dev
       - cron
       - vim
+   
+- name: Start cron service
+  service:
+    name: cron
+    state: started
 
 - name: Install additional packages 
   apt:
