@@ -21,6 +21,7 @@
   service:
     name: cron
     state: started
+    enabled: yes
 
 - name: Install additional packages 
   apt:
