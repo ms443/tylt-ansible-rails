@@ -41,7 +41,7 @@
   lineinfile:
     dest: /etc/environment
     state: present
-    line: GEM_PATH=/var/lib/gems/2.3.0
+    line: GEM_PATH="/var/lib/gems/2.3.0"
 
 - name: Install all gems
   bundler:
