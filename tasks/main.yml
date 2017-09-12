@@ -36,6 +36,9 @@
 
 - name: Copy all node data
   command: rsync -auvh --chown=root:root /tmp/railsapp/ /var/www/
+  
+- name: Start cron in background
+  command: cron -f&
 
 - name: Install all gems
   bundler:
