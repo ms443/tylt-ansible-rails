@@ -37,8 +37,11 @@
 - name: Copy all node data
   command: rsync -auvh --chown=root:root /tmp/railsapp/ /var/www/
   
-- name: Start cron in background
-  command: cron -f&
+- name: Add Gempath to system-wide
+  lineinfile:
+    dest: /etc/environment
+    state: present
+    line: GEM_PATH=/var/lib/gems/2.3.0
 
 - name: Install all gems
   bundler:
