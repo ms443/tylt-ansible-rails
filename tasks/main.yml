@@ -15,6 +15,7 @@
       - libpq-dev
       - libcurl4-openssl-dev
       - cron
+      - vim
 
 - name: Install additional packages 
   apt:
