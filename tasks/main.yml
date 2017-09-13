@@ -39,9 +39,9 @@
   
 - name: Add Gempath to system-wide
   lineinfile:
-    dest: /etc/environment
+    dest: /root/.bashrc 
     state: present
-    line: GEM_PATH="/var/lib/gems/2.3.0"
+    line: export GEM_PATH=/var/lib/gems/2.3.0
 
 - name: Install all gems
   bundler:
