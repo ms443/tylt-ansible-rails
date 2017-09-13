@@ -36,12 +36,6 @@
 
 - name: Copy all node data
   command: rsync -auvh --chown=root:root /tmp/railsapp/ /var/www/
-  
-- name: Add Gempath to system-wide
-  lineinfile:
-    dest: /root/.bashrc 
-    state: present
-    line: export GEM_PATH=/var/lib/gems/2.3.0
 
 - name: Install all gems
   bundler:
