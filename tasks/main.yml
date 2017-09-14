@@ -15,7 +15,14 @@
       - libpq-dev
       - libcurl4-openssl-dev
 
-- name: Install bundler 
+- name: Install additional packages 
+  apt:
+    name: "{{ item.key }}={{ item.value.version }}"
+    force: yes
+  when: additional_packages
+  with_dict: "{{ additional_packages }}"
+
+- name: Install bundler and whenever 
   gem:
     name: "{{ item }}"
     state: latest
@@ -39,10 +46,3 @@
     gemfile: "/var/www/Gemfile"
     deployment_mode: yes
     clean: yes
-
-- name: Install additional packages 
-  apt:
-    name: "{{ item.key }}={{ item.value.version }}"
-    force: yes
-  when: additional_packages
-  with_dict: "{{ additional_packages }}"
