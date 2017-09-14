@@ -20,6 +20,7 @@
     name: "{{ item.key }}={{ item.value.version }}"
   when: additional_packages
   with_dict: "{{ additional_packages }}"
+  only_upgrade: yes
 
 - name: Install bundler 
   gem:
