@@ -39,7 +39,7 @@
 
 - name: Install all gems
   bundler:
-    state: latest
+    state: present
     gemfile: "/var/www/Gemfile"
     user_install: false
     deployment_mode: yes
