@@ -43,6 +43,7 @@
 - name: Install additional packages 
   apt:
     name: "{{ item.key }}={{ item.value.version }}"
-    state: latest
+    only_upgrade: yes
+    force: yes
   when: additional_packages
   with_dict: "{{ additional_packages }}"
