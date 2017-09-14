@@ -41,5 +41,4 @@
   bundler:
     state: present
     gemfile: "/var/www/Gemfile"
-    user_install: false
     deployment_mode: yes
