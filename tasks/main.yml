@@ -24,9 +24,12 @@
 
 - name: Install bundler 
   gem:
-    name: bundler
+    name: "{{ item }}"
     state: latest
     user_install: false
+  with_items:
+      - bundler
+      - whenever
 
 - name: Creating project_root directory
   file:
