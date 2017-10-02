@@ -38,6 +38,11 @@
     state: directory
     mode: 0755
 
+- name: Clean migrate path
+  file:
+    state: absent
+    path: "/var/www/migrate/"
+
 - name: Copy all node data
   command: rsync -auvh --chown=root:root /tmp/railsapp/ /var/www/
 
