@@ -52,3 +52,4 @@
     gemfile: "/var/www/Gemfile"
     deployment_mode: yes
     clean: yes
+    extra_args: "--without development test"
