@@ -16,16 +16,12 @@
     state: installed
   when: not apt_https_transport.stat.exists
 
-- name: Import the RubySource GPG key into apt
-  apt_key:
-    url: https://keyserver.ubuntu.com
-    key: "C3173AA6"
-    state: present
-
 - name: Add NodeSource deb repository
   apt_repository:
     repo: 'deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu xenial main'
     state: present
+    keyserver    'keyserver.ubuntu.com'
+    key          'C3173AA6'
 
 - name: Ensure packages are installed
   apt:
