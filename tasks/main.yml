@@ -15,13 +15,13 @@
     pkg: apt-transport-https
     state: installed
   when: not apt_https_transport.stat.exists
+  
+- apt_key: id=C3173AA6 keyserver=keyserver.ubuntu.com state=present
 
 - name: Add NodeSource deb repository
   apt_repository:
     repo: 'deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu xenial main'
     state: present
-    key: 'C3173AA6'
-    keyserver: 'keyserver.ubuntu.com'
 
 
 - name: Ensure packages are installed
