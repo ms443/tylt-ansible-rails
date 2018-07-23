@@ -19,7 +19,7 @@
 - name: Import the RubySource GPG key into apt
   apt_key:
     url: https://keyserver.ubuntu.com
-    id: "C3173AA6"
+    key: "C3173AA6"
     state: present
 
 - name: Add NodeSource deb repository
