@@ -67,7 +67,7 @@
     path: "/var/www/db/migrate/"
 
 - name: Copy all node data
-  command: rsync -auvh --checksum --ignore-times --delete --chown=root:root /tmp/railsapp/ /var/www/ {{ gem_exclusion }}
+  command: rsync -auvh --checksum --ignore-times --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude /vendor/bundle
 
 - name: Install all gems
   bundler:
