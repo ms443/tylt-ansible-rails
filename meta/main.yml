@@ -10,4 +10,5 @@ dependencies:
     vars:
       rvm1_user: 'root'
       rvm1_rubies: "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
-      rvm1_install_path: '/usr/local/rvm'
+      rvm1_install_path: '~/.rvm'
+      rvm1_install_flags: '--auto-dotfiles  --user-install'
