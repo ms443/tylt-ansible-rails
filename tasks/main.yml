@@ -26,15 +26,6 @@
 #  apt_repository:
 #    repo: 'deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu xenial main'
 #    state: present
-
-
-- name: RVM Install
-  include_role:
-    name: rvm.ruby
-  vars:
-    rvm1_rubies: "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
-    rvm1_install_path: '/usr/local/rvm'
-    rvm1_user: 'root'
     
 - name: Ensure packages are installed
   apt:
