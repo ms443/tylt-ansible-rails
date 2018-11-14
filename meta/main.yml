@@ -6,11 +6,6 @@ galaxy_info:
   min_ansible_version: 1.2  
   galaxy_tags: []
 dependencies:
-  - name: rvm.ruby
+  - name: aeriscloud.rvm
     vars:
-      rvm1_user: "{{ ansible_user_id }}"
-      rvm1_install_flags: '--auto-dotfiles --user-install'
-      rvm1_install_path: '/home/{{ ansible_user_id }}/.rvm'
-      rvm1_rubies: "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
-      rvm1_ruby_install_flags: --autolibs=read-fail
-      rvm1_autolib_mode: read-fail
+      rvm_install_type: user
