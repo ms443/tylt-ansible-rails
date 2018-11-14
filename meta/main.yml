@@ -9,3 +9,5 @@ dependencies:
   - name: rvm.ruby
     vars:
       rvm1_user: 'root'
+      rvm1_rubies: "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
+      rvm1_install_path: '/usr/local/rvm'
