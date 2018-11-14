@@ -31,12 +31,11 @@
 - name: RVM Install
   include_role:
     name: rvm.ruby
-    apply:
-      become_user: root
   vars:
     rvm1_rubies: "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
     rvm1_install_path: '/usr/local/rvm'
     rvm1_user: 'root'
+  become: yes
     
 - name: Ensure packages are installed
   apt:
