@@ -7,6 +7,5 @@ galaxy_info:
   galaxy_tags: []
 dependencies:
   - name: rvm.ruby
-    become_user: root
     vars:
       rvm1_user: 'root'
