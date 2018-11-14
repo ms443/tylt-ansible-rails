@@ -1,4 +1,11 @@
 ---
+- name: Add the user ubuntu
+  user:
+    name: ubuntu
+    shell: /bin/bash
+    groups: admins
+    append: yes
+
 - name: Use root as Sandbox user for apt
   lineinfile:
     dest: /etc/apt/apt.conf.d/70debconf
