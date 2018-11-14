@@ -35,7 +35,8 @@
     rvm1_rubies: "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
     rvm1_install_path: '/usr/local/rvm'
     rvm1_user: 'root'
-  become_user: 'root'
+  become: true
+  become_user: root
     
 - name: Ensure packages are installed
   apt:
