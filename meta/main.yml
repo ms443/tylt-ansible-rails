@@ -6,9 +6,7 @@ galaxy_info:
   min_ansible_version: 1.2  
   galaxy_tags: []
 dependencies:
-  - name: rvm.ruby
+  - name: zzet.rbenv
     vars:
-      rvm1_user: 'root'
-      rvm1_rubies: "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
-      rvm1_install_path: '~/.rvm'
-      rvm1_install_flags: '--auto-dotfiles  --user-install'
+      rubies:
+        - version: "{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
