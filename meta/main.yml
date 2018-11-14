@@ -5,3 +5,5 @@ galaxy_info:
   license: license (GPLv2, CC-BY, etc)
   min_ansible_version: 1.2  
   galaxy_tags: []
+dependencies:
+  - name: rvm.ruby
