@@ -6,9 +6,7 @@ galaxy_info:
   min_ansible_version: 1.2  
   galaxy_tags: []
 dependencies:
-  - name: rvm.ruby
+  - name: newmen.rvm
     vars:
-      rvm1_rubies: "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
-      rvm1_install_flags: '--auto-dotfiles  --user-install'
-      rvm1_install_path: '~/.rvm'
-      rvm1_user: root
+      rvm_install_type: user
+      rvm_default_ruby_version:  "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
