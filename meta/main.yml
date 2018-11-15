@@ -9,5 +9,3 @@ dependencies:
   - name: aeriscloud.rvm
     vars:
       rvm_default_ruby_version: "ruby-2.4.4"
-      rvm_install_type: "system"
-
