@@ -46,7 +46,11 @@
   with_dict: "{{ additional_packages }}"
   
 - name: Installing Ruby as root
-  command: "/usr/local/rvm/bin/rvm install {{rvm_default_ruby_version}} && source /usr/local/rvm/scripts/rvm"
+  command: "/usr/local/rvm/bin/rvm install {{rvm_default_ruby_version}}"
+  ignore_errors: True
+  
+- name: Source RVM scripts
+  command: "source /usr/local/rvm/scripts/rvm"
   ignore_errors: True
 
 - name: Install bundler
