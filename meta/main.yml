@@ -6,12 +6,6 @@ galaxy_info:
   min_ansible_version: 1.2  
   galaxy_tags: []
 dependencies:
-  - name: Ensure packages are installed
-    apt:
-      name: "{{ item }}"
-    with_items:
-      - gnupg2
-      - curl
   - name: aeriscloud.rvm
     vars:
       rvm_install_type: user
