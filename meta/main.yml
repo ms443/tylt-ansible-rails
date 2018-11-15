@@ -5,13 +5,5 @@ galaxy_info:
   license: license (GPLv2, CC-BY, etc)
   min_ansible_version: 1.2  
   galaxy_tags: []
-dependencies:
-  - name: SimpliField.packages
-    vars:
-      packages: curl
-      packages_update_cache: true
-  - name: aeriscloud.rvm
-    vars:
-      rvm_install_type: user
-      rvm_default_ruby_version:  "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
-      rvm_autolibs: 0
+dependencies: []
+
