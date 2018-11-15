@@ -10,3 +10,4 @@ dependencies:
     vars:
       rvm_install_type: user
       rvm_default_ruby_version:  "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
+      rvm_autolibs: 0
