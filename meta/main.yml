@@ -8,7 +8,8 @@ galaxy_info:
 dependencies:
   - name: SimpliField.packages
     vars:
-      packages: [{name: curl, state: present}], packages_update_cache: true]
+      packages: curl
+      packages_update_cache: true
   - name: aeriscloud.rvm
     vars:
       rvm_install_type: user
