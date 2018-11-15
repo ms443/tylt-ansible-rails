@@ -48,6 +48,11 @@
 - name: Installing Ruby as root
   command: "/usr/local/rvm/bin/rvm install {{rvm_default_ruby_version}}"
   ignore_errors: True
+  
+- name: Add rvm wrapper to system-wide $PATH.
+  copy:
+    dest: /etc/profile.d/custom-path.sh
+    content: 'PATH=$PATH:/usr/local/rvm/gems/{{rvm_default_ruby_version}}/wrappers/'
 
 - name: Install bundler
   gem:
