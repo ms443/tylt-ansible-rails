@@ -6,7 +6,7 @@ galaxy_info:
   min_ansible_version: 1.2  
   galaxy_tags: []
 dependencies:
-  - name: newmen.rvm
+  - name: aeriscloud.rvm
     vars:
       rvm_install_type: user
       rvm_default_ruby_version:  "ruby-{{ lookup('file', '/tmp/railsapp/.ruby-version') }}"
