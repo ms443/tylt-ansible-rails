@@ -7,7 +7,4 @@ galaxy_info:
   galaxy_tags: []
 dependencies:
   - name: aeriscloud.rvm
-    vars:
-     rvm_install_type: system
-     rvm_default_ruby_version: "ruby-2.4.4"
 
