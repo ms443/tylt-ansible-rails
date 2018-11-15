@@ -44,15 +44,18 @@
     force: yes
   when: additional_packages
   with_dict: "{{ additional_packages }}"
+  
+- name: Installing Ruby as root
+  command: "/usr/local/rvm/bin/rvm install {{rvm_default_ruby_version}}"
+  ignore_errors: True
 
-- name: Install bundler and whenever 
+- name: Install bundler
   gem:
     name: "{{ item }}"
     state: latest
     user_install: false
   with_items:
       - bundler
-      - whenever
 
 - name: Creating project_root directory
   file:
