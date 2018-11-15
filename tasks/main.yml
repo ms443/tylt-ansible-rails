@@ -50,7 +50,7 @@
   ignore_errors: True
   
 - name: Source RVM scripts
-  command: "source /usr/local/rvm/scripts/rvm"
+  command: "source /etc/profile.d/rvm.sh"
   ignore_errors: True
 
 - name: Install bundler
