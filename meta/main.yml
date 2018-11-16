@@ -6,6 +6,8 @@ galaxy_info:
   min_ansible_version: 1.2  
   galaxy_tags: []
 dependencies:
-  - name: aeriscloud.rvm
+  - name: rvm.ruby
     vars:
-      rvm_default_ruby_version: "ruby-2.4.4"
+      rvm1_rubies: "ruby-2.4.4"
+      rvm1_install_flags: "--auto-dotfiles"
+      rvm1_user: "root"
