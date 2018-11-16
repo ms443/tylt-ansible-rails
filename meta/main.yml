@@ -7,6 +7,7 @@ galaxy_info:
   galaxy_tags: []
 dependencies:
   - name: rvm.ruby
+    src: "https://github.com/rvm/rvm1-ansible"
     vars:
       rvm1_rubies: "ruby-2.4.4"
       rvm1_install_flags: "--auto-dotfiles"
