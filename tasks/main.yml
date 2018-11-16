@@ -52,6 +52,14 @@
 - name: Source RVM scripts
   command: "source /etc/profile.d/rvm.sh"
   ignore_errors: True
+  
+- name: List RVM scripts
+  command: "ls -la /etc/profile.d"
+  ignore_errors: True
+  
+- name: List RVM scripts
+  command: "find / -name *rvm"
+  ignore_errors: True
 
 - name: Install bundler
   gem:
