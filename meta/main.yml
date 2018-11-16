@@ -8,5 +8,3 @@ galaxy_info:
 dependencies:
   - name: aeriscloud.rvm
     src: "https://github.com/AerisCloud/ansible-rvm"
-    vars:
-      rvm_default_ruby_version: "ruby-2.4.4"
