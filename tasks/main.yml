@@ -89,10 +89,11 @@
 - name: Copy all node data
   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
 
-#- name: Install all gems
-#  bundler:
-#    state: present
-#    gemfile: "/var/www/Gemfile"
-#    deployment_mode: yes
-#    clean: yes
-#    extra_args: "--without development test"
+- name: Install all gems
+  bundler:
+    state: present
+    gemfile: "/var/www/Gemfile"
+    deployment_mode: yes
+    clean: yes
+    extra_args: "--without development test"
+    executable: "/usr/local/bin/bundle"
