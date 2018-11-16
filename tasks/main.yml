@@ -45,9 +45,10 @@
   when: additional_packages
   with_dict: "{{ additional_packages }}"
   
-- name: Installing Ruby as root
+- name: installing Ruby
   command: "/usr/local/rvm/bin/rvm install {{rvm_default_ruby_version}}"
-  ignore_errors: True
+  register: command_result
+  changed_when: "'Already installed' not in command_result.stderr"
   
 - name: Install bundler
   gem:
