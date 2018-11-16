@@ -1,2 +1,5 @@
 ---
 rvm_root: /usr/local/rvm
+rvm_init_script: /etc/profile.d/rvm.sh
+rvm_install_type: system
+rvm_default_ruby_version: ruby-2.4.4
