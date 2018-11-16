@@ -15,17 +15,6 @@
     pkg: apt-transport-https
     state: installed
   when: not apt_https_transport.stat.exists
-  
-#- name: Add Launchpad PPA for Brightbox key
-#  apt_key:
-#    id: 'C3173AA6'
-#    keyserver: 'keyserver.ubuntu.com'
-#    state: present
-
-#- name: Add Launchpad PPA for Brightbox deb repository
-#  apt_repository:
-#    repo: 'deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu xenial main'
-#    state: present
     
 - name: Ensure packages are installed
   apt:
