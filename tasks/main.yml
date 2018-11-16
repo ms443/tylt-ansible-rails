@@ -53,6 +53,10 @@
   command: "source /etc/profile.d/rvm.sh"
   ignore_errors: True
   
+- name: Apply RVM scripts
+  command: "/etc/profile.d/rvm.sh"
+  ignore_errors: True
+  
 - name: List RVM scripts
   command: "ls -la /etc/profile.d"
   ignore_errors: True
