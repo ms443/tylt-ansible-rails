@@ -39,13 +39,13 @@
     - { src: '{{rvm_root}}/rubies/{{rvm_default_ruby_version}}/bin/ruby', dest: '/usr/local/bin/ruby' }
     - { src: '{{rvm_root}}/rubies/{{rvm_default_ruby_version}}/bin/gem', dest: '/usr/local/bin/gem' }
   
-- name: Install bundler
-  gem:
-    name: "{{ item }}"
-    state: latest
-    user_install: false
-  with_items:
-      - bundler
+#- name: Install bundler
+#  gem:
+#    name: "{{ item }}"
+#    state: latest
+#    user_install: false
+#  with_items:
+#      - bundler
 
 - name: Creating project_root directory
   file:
