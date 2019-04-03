@@ -38,14 +38,6 @@
   with_items:
     - { src: '{{rvm_root}}/rubies/{{rvm_default_ruby_version}}/bin/ruby', dest: '/usr/local/bin/ruby' }
     - { src: '{{rvm_root}}/rubies/{{rvm_default_ruby_version}}/bin/gem', dest: '/usr/local/bin/gem' }
-  
-#- name: Install bundler
-#  gem:
-#    name: "{{ item }}"
-#    state: latest
-#    user_install: false
-#  with_items:
-#      - bundler
 
 - name: Creating project_root directory
   file:
@@ -69,3 +61,15 @@
     clean: yes
     extra_args: "--without development test"
     executable: "/usr/local/bin/bundle"
+ 
+- name: Remove unnecessary package
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - rsync
+    - git
+
+- name: Remove dependencies that are no longer required
+  apt:
+    autoremove: yes
