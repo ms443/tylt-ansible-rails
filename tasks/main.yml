@@ -62,13 +62,6 @@
     extra_args: "--without development test"
     executable: "/usr/local/bin/bundle"
 
-- name: Cleanup node_modules for npm and node
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - /var/lib/apt/lists/
-
 - name: Remove unnecessary package
   apt:
     name: "{{ item }}"
