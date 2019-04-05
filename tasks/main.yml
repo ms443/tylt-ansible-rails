@@ -53,7 +53,7 @@
     - /var/www/db/migrate/
 
 - name: Copy all node data
-  command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle .tags/
+  command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
 
 - name: Install all gems
   bundler:
