@@ -51,7 +51,6 @@
     path:
   with_items:
     - /var/www/db/migrate/
-    - /var/www/.tags
 
 - name: Copy all node data
   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle .tags/
