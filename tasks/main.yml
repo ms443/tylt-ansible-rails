@@ -73,7 +73,6 @@
     - rsync
     - git
     - perl
-    - ruby
     - perl
     - python
     - python2.7
