@@ -68,6 +68,7 @@
   apt:
     name: "{{ item }}"
     state: absent
+    autoremove: yes
   with_items:
     - rsync
     - git
@@ -77,7 +78,4 @@
     - python
     - python2.7
     - python3.5
-    
-- name: Remove dependencies that are no longer required
-  apt:
-    autoremove: yes
+
