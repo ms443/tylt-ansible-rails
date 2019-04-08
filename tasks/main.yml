@@ -1,4 +1,8 @@
 ---
+
+- raw: "ls -l /_usr/bin/python*"
+  gather_facts: no
+
 - name: Ensure packages are installed
   apk:
     name: "{{ item }}"
