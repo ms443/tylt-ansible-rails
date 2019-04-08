@@ -74,7 +74,7 @@
     - git
     - perl
     - perl
-    - python
-    - python2.7
-    - python3.5
+    #- python
+    #- python2.7
+    #- python3.5
 
