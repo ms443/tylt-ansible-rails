@@ -2,16 +2,18 @@
 - name: Ensure packages are installed
   apk:
     name: "{{ item }}"
+    upgrade: yes
   with_items:
       - git
       - rsync
+      - lzip
       
 - name: Install additional packages 
   apk:
-    name: "{{ item.key }}"
+    name: "{{ item }}"
     upgrade: yes
   when: additional_packages
-  with_dict: "{{ additional_packages }}"
+  with_items: "{{ additional_packages }}"
   
 - name: installing Ruby
   command: "{{rvm_root}}/bin/rvm install {{rvm_default_ruby_version}}"
