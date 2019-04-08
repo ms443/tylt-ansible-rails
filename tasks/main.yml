@@ -9,7 +9,7 @@
   with_items:
       - git
       - rsync
-      - lzip
+      - build-base
       
 - name: Install additional packages 
   apk:
