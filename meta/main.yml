@@ -5,8 +5,8 @@ galaxy_info:
   license: license (GPLv2, CC-BY, etc)
   min_ansible_version: 1.2  
   galaxy_tags: []
-dependencies:
-  - name: aeriscloud.rvm
-    src: "https://github.com/AerisCloud/ansible-rvm"
-    vars:
-      rvm_auto_update_rvm: false
+#dependencies:
+  #- name: aeriscloud.rvm
+  #  src: "https://github.com/AerisCloud/ansible-rvm"
+  #  vars:
+  #    rvm_auto_update_rvm: false
