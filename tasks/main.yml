@@ -1,15 +1,11 @@
 ---
 - name: Ensure packages are installed
-  apt:
+  apk:
     name: "{{ item }}"
   with_items:
-      - apt-utils
       - git
       - rsync
-      - libpq-dev
-      - libcurl4-openssl-dev
-      - libuv1
-
+      
 - name: Install additional packages 
   apt:
     name: "{{ item.key }}={{ item.value.version }}"
