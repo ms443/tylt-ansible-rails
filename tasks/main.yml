@@ -31,6 +31,7 @@
     state: absent
     path:
   with_items:
+    -  /var/cache/apk/
     - /var/www/db/migrate/
 
 - name: Copy all node data
