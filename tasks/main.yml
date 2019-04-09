@@ -1,8 +1,4 @@
 ---
-
-- raw: "ls -l /_usr/bin/python*"
-  gather_facts: no
-
 - name: Ensure packages are installed
   apk:
     name: "{{ item }}"
@@ -23,28 +19,6 @@
   command: "which ruby"
   register: command_result
   changed_when: "'Already installed' not in command_result.stderr"
-
-#- name: installing Ruby
-#  command: "{{rvm_root}}/bin/rvm install {{rvm_default_ruby_version}}"
-#  register: command_result
-#  changed_when: "'Already installed' not in command_result.stderr"
-
-#- name: setting default Ruby version
-#  shell: "source {{rvm_init_script}} && rvm use {{rvm_default_ruby_version}} --default executable=/bin/bash"
-#  register: rvm_select_ruby_version_root
-#  ignore_errors: true
-#  changed_when: false
-
-#- name: Create symlinks to ruby and gem
-#  file:
-#    src: "{{ item.src }}"
-#    dest: "{{ item.dest }}"
-#    owner: root
-#    group: root
-#    state: link
-#  with_items:
-#    - { src: '{{rvm_root}}/rubies/{{rvm_default_ruby_version}}/bin/ruby', dest: '/usr/local/bin/ruby' }
-#    - { src: '{{rvm_root}}/rubies/{{rvm_default_ruby_version}}/bin/gem', dest: '/usr/local/bin/gem' }
 
 - name: Creating project_root directory
   file:
@@ -71,17 +45,11 @@
     extra_args: "--without development test"
     executable: "/usr/local/bin/bundle"
 
-- name: Remove unnecessary package
-  apt:
+- name: Remove unnecessary packages
+  apk:
     name: "{{ item }}"
     state: absent
-    autoremove: yes
   with_items:
-    - rsync
-    - git
-    - perl
-    - perl
-    #- python
-    #- python2.7
-    #- python3.5
-
+      - git
+      - rsync
+      - build-base
