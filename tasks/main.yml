@@ -5,6 +5,7 @@
   with_items:
       - git
       - bash
+      - curl
       - rsync
       - tzdata
       - libcurl
