@@ -6,6 +6,7 @@
       - git
       - bash
       - rsync
+      - libcurl
       - build-base
       - postgresql-dev
       - linux-headers
