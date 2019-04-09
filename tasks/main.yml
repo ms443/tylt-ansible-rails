@@ -11,6 +11,7 @@
       - rsync
       - build-base
       - postgresql-dev
+      - linux-headers
       
 - name: Install additional packages 
   apk:
