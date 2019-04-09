@@ -9,7 +9,7 @@
       - build-base
       - postgresql-dev
       - linux-headers
-      - nodejs=8.9.4
+      - nodejs=8.9.3-r1
       
 - name: Install additional packages 
   apk:
