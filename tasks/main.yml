@@ -6,6 +6,7 @@
       - git
       - bash
       - rsync
+      - tzdata
       - libcurl
       - build-base
       - postgresql-dev
