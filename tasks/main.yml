@@ -14,11 +14,6 @@
     name: "{{ item }}"
   when: additional_packages
   with_items: "{{ additional_packages }}"
-  
-- name: installing Ruby
-  command: "which ruby"
-  register: command_result
-  changed_when: "'Already installed' not in command_result.stderr"
 
 - name: Creating project_root directory
   file:
