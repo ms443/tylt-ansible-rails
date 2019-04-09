@@ -10,6 +10,7 @@
       - git
       - rsync
       - build-base
+      - postgresql-dev
       
 - name: Install additional packages 
   apk:
