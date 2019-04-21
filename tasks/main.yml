@@ -24,7 +24,9 @@
   with_items: "{{ additional_packages }}"
   
 - name: Install ruby version
-  command: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}" && rvm install "{{ ruby_version }}"
+  shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}" && rvm install "{{ ruby_version }}"
+  args:
+    executable: /bin/bash
 
 - name: Creating project_root directory
   file:
