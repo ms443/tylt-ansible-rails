@@ -30,8 +30,8 @@
     
 - name: Symlink ruby
   file:
-    src: /root/.rvm/rubies/ruby-2.4.4/bin/ruby
-    dest: /usr/bin/ruby
+    src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby"
+    dest: "/usr/bin/ruby"
     state: link
 
 - name: Creating project_root directory
