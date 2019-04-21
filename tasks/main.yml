@@ -40,7 +40,13 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
-    
+ 
+- name: Test bin location
+  command: ls -la /root/.rvm/rubies/ruby-{{ ruby_version }}/bin
+
+- name: Test bin location
+  command: ls -la /usr/bin
+  
 - name: Creating project_root directory
   file:
     path: /var/www
@@ -57,9 +63,6 @@
 
 - name: Copy all node data
   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
-  
-- name: Install bundler
-  command: gem install bundler
 
 - name: Install all gems
   bundler:
