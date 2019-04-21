@@ -19,6 +19,12 @@
     name: "{{ item }}"
   when: additional_packages
   with_items: "{{ additional_packages }}"
+  
+- name: Update ruby-build
+  command: cd /usr/local/rbenv/plugins/ruby-build && git pull && cd -
+  
+- name: Install ruby version
+  command: rbenv install --verbose "{{ ruby_version }}"
 
 - name: Creating project_root directory
   file:
