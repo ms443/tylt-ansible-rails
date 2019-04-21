@@ -27,6 +27,12 @@
   shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}" && rvm use "{{ ruby_version }}"
   args:
     executable: /bin/bash
+    
+- name: Symlink ruby
+  file:
+    src: /root/.rvm/rubies/ruby-2.4.4/bin/ruby
+    dest: /usr/bin/ruby
+    state: link
 
 - name: Creating project_root directory
   file:
@@ -34,16 +40,21 @@
     state: directory
     mode: 0755
 
-- name: Clean migrations and .tags
+- name: Clean migrations and apk
   file:
     state: absent
     path:
   with_items:
-    -  /var/cache/apk/
+    - /var/cache/apk/
     - /var/www/db/migrate/
 
 - name: Copy all node data
   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
+  
+- name: Install bundler
+  gem:
+    name: bundler
+    state: present
   
 - name: Install all gems
   bundler:
