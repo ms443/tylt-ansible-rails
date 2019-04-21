@@ -16,7 +16,6 @@
       - linux-headers
       - libxslt-dev 
       - libffi-dev
-      - ruby-bundler
       - nodejs
       
 - name: Install additional packages 
@@ -52,6 +51,12 @@
 
 - name: Copy all node data
   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
+  
+- name: Install Bundler
+  gem:
+    name: bundler
+    state: present
+    user_install: no
 
 - name: Install all gems
   bundler:
