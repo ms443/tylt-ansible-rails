@@ -30,7 +30,7 @@
 
 - name: Symlink ruby
   file:
-    src: '/tmp/{{ item.src }}'
+    src: '{{ item.src }}'
     dest: '{{ item.dest }}'
     state: link
     force: yes
