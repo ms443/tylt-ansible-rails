@@ -14,6 +14,8 @@
       - jemalloc-dev
       - postgresql-dev
       - linux-headers
+      - libxslt-dev 
+      - libffi-dev
       - nodejs
       
 - name: Install additional packages 
@@ -22,12 +24,6 @@
     update_cache: yes
   when: additional_packages
   with_items: "{{ additional_packages }}"
-  
-- name: Install bundler
-  gem:
-    name: bundler
-    state: present
-    user_install: no
   
 - name: Install ruby version
   shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}"
@@ -46,6 +42,12 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
+    
+- name: Install bundler
+  gem:
+    name: bundler
+    state: present
+    user_install: no
   
 - name: Creating project_root directory
   file:
@@ -75,6 +77,8 @@
       - alpine-sdk
       - jemalloc-dev
       - linux-headers
+      - libxslt-dev 
+      - libffi-dev
 
 - name: Clean migrations and apk
   file:
