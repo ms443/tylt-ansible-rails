@@ -16,6 +16,7 @@
       - linux-headers
       - libxslt-dev 
       - libffi-dev
+      - ruby-bundler
       - nodejs
       
 - name: Install additional packages 
@@ -42,12 +43,6 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
-    
-- name: Install bundler
-  gem:
-    name: bundler
-    state: present
-    user_install: no
   
 - name: Creating project_root directory
   file:
