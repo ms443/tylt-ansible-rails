@@ -18,6 +18,7 @@
 - name: Install additional packages 
   apk:
     name: "{{ item }}"
+    update_cache: yes
   when: additional_packages
   with_items: "{{ additional_packages }}"
   
