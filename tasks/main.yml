@@ -40,26 +40,17 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
- 
-- name: Test bin location
-  command: ls -la /root/.rvm/rubies/ruby-{{ ruby_version }}/bin
-
-- name: Test bin location
-  command: ls -la /usr/bin
+    
+- name: Installl bundler
+  gem:
+    name: bundler
+    state: present
   
 - name: Creating project_root directory
   file:
     path: /var/www
     state: directory
     mode: 0755
-
-- name: Clean migrations and apk
-  file:
-    state: absent
-    path:
-  with_items:
-    - /var/cache/apk/
-    - /var/www/db/migrate/
 
 - name: Copy all node data
   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
@@ -84,3 +75,11 @@
       - alpine-sdk
       - jemalloc-dev
       - linux-headers
+
+- name: Clean migrations and apk
+  file:
+    state: absent
+    path:
+  with_items:
+    - /var/cache/apk/
+    - /var/www/db/migrate/
