@@ -5,13 +5,13 @@
     update_cache: yes
   with_items:
       - git
-      - bash
       - curl
       - rsync
       - tzdata
       - libcurl
       - build-base
       - alpine-sdk
+      - jemalloc-dev
       - postgresql-dev
       - linux-headers
       - nodejs
@@ -61,3 +61,5 @@
       - rsync
       - build-base
       - alpine-sdk
+      - jemalloc-dev
+      - linux-headers
