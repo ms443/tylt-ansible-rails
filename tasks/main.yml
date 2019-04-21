@@ -11,6 +11,7 @@
       - tzdata
       - libcurl
       - build-base
+      - alpine-sdk
       - postgresql-dev
       - linux-headers
       - nodejs
@@ -23,10 +24,7 @@
   with_items: "{{ additional_packages }}"
   
 - name: Update ruby-build
-  command: cd /usr/local/rbenv/plugins/ruby-build && git pull && cd -
-  
-- name: Install ruby version
-  command: rbenv install --verbose "{{ ruby_version }}"
+  command: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}"
 
 - name: Creating project_root directory
   file:
@@ -62,3 +60,4 @@
       - git
       - rsync
       - build-base
+      - alpine-sdk
