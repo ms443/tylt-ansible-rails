@@ -23,10 +23,11 @@
   when: additional_packages
   with_items: "{{ additional_packages }}"
   
-- name: Installl bundler
+- name: Install bundler
   gem:
     name: bundler
     state: present
+    user_install: no
   
 - name: Install ruby version
   shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}"
