@@ -62,7 +62,7 @@
     deployment_mode: yes
     clean: yes
     extra_args: "--without development test"
-    executable: "/usr/local/bin/bundle"
+    executable: "/usr/bin/bundle"
 
 - name: Remove unnecessary packages
   apk:
