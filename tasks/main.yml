@@ -68,11 +68,15 @@
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
-- name: Add another bin dir to system-wide $PATH.
-  copy:
-    dest: /etc/profile.d/custom-path.sh
-    content: 'PATH=$PATH:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin'
-        
+- name: Add ruby bin to $PATH.
+  lineinfile:
+    dest: '{{ item }}'
+    line: 'PATH=$PATH:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin'
+  with_items:
+    - /root/.profile
+    - /root/.bash_profile
+    - /root/.bashrc
+
 - name: Remove unnecessary packages
   apk:
     name: "{{ item }}"
