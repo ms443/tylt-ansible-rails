@@ -27,7 +27,20 @@
   shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}"
   args:
     executable: /bin/bash
-    
+
+- name: Symlink ruby
+  file:
+    src: '/tmp/{{ item.src }}'
+    dest: '{{ item.dest }}'
+    state: link
+  with_items:
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
+
+
 - name: Symlink ruby
   file:
     src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby"
@@ -55,15 +68,6 @@
   gem:
     name: bundler
     state: present
-  
-- name: Install all gems
-  bundler:
-    state: present
-    gemfile: "/var/www/Gemfile"
-    deployment_mode: yes
-    clean: yes
-    extra_args: "--without development test"
-    executable: "/usr/local/bin/bundle"
 
 - name: Install all gems
   bundler:
