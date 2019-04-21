@@ -60,6 +60,8 @@
     deployment_mode: yes
     clean: yes
     extra_args: "--without development test"
+  environment:
+    PATH:$PATH:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin
 
 - name: Remove unnecessary packages
   apk:
