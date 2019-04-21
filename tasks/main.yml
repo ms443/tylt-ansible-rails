@@ -68,13 +68,12 @@
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
-- name: add {{extra_path}} to path
+- name: Set PATH
   lineinfile:
-    dest: /etc/environment
+    dest: "/etc/environment"
     state: present
-    backrefs: yes
-    regexp: 'PATH=(["]*)((?!.*?{{extra_path}}).*?)(["]*)$'
-    line: "PATH=\1\2:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin\3"
+    regexp: '^PATH'
+    line: "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
 - name: Remove unnecessary packages
   apk:
