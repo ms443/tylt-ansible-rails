@@ -59,9 +59,7 @@
   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
   
 - name: Install bundler
-  gem:
-    name: bundler
-    state: present
+  command: gem install bundler
 
 - name: Install all gems
   bundler:
