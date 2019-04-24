@@ -1,59 +1,62 @@
 ---
 - name: Ensure packages are installed
-  apt:
+  apk:
     name: "{{ item }}"
+    update_cache: yes
   with_items:
-      - apt-utils
       - git
+      - curl
       - rsync
-      - libpq-dev
-      - libcurl4-openssl-dev
-      - libuv1
-
+      - tzdata
+      - libcurl
+      - build-base
+      - alpine-sdk
+      - jemalloc-dev
+      - postgresql-dev
+      - linux-headers
+      - libxslt-dev 
+      - libffi-dev
+      - nodejs
+      
 - name: Install additional packages 
-  apt:
-    name: "{{ item.key }}={{ item.value.version }}"
-    force: yes
+  apk:
+    name: "{{ item }}"
+    update_cache: yes
   when: additional_packages
-  with_dict: "{{ additional_packages }}"
+  with_items: "{{ additional_packages }}"
   
-- name: installing Ruby
-  command: "{{rvm_root}}/bin/rvm install {{rvm_default_ruby_version}}"
-  register: command_result
-  changed_when: "'Already installed' not in command_result.stderr"
+- name: Install ruby version
+  shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}"
+  args:
+    executable: /bin/bash
 
-- name: setting default Ruby version
-  shell: "source {{rvm_init_script}} && rvm use {{rvm_default_ruby_version}} --default executable=/bin/bash"
-  register: rvm_select_ruby_version_root
-  ignore_errors: true
-  changed_when: false
-
-- name: Create symlinks to ruby and gem
+- name: Symlink ruby
   file:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: root
-    group: root
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
     state: link
+    force: yes
   with_items:
-    - { src: '{{rvm_root}}/rubies/{{rvm_default_ruby_version}}/bin/ruby', dest: '/usr/local/bin/ruby' }
-    - { src: '{{rvm_root}}/rubies/{{rvm_default_ruby_version}}/bin/gem', dest: '/usr/local/bin/gem' }
-
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
+  
 - name: Creating project_root directory
   file:
     path: /var/www
     state: directory
     mode: 0755
 
-- name: Clean migrations and .tags
-  file:
-    state: absent
-    path:
-  with_items:
-    - /var/www/db/migrate/
-
 - name: Copy all node data
   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
+  
+- name: Install Bundler
+  gem:
+    name: bundler
+    state: present
+    user_install: no
 
 - name: Install all gems
   bundler:
@@ -62,19 +65,36 @@
     deployment_mode: yes
     clean: yes
     extra_args: "--without development test"
-    executable: "/usr/local/bin/bundle"
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
-- name: Remove unnecessary package
-  apt:
+- name: Add ruby bin to $PATH.
+  lineinfile:
+    dest: '{{ item }}'
+    line: 'PATH=$PATH:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin'
+  with_items:
+    - /root/.profile
+    - /root/.bash_profile
+    - /root/.bashrc
+
+- name: Remove unnecessary packages
+  apk:
     name: "{{ item }}"
     state: absent
-    autoremove: yes
   with_items:
-    - rsync
-    - git
-    - perl
-    - perl
-    #- python
-    #- python2.7
-    #- python3.5
+      - git
+      - rsync
+      - build-base
+      - alpine-sdk
+      - jemalloc-dev
+      - linux-headers
+      - libxslt-dev 
+      - libffi-dev
 
+- name: Clean migrations and apk
+  file:
+    state: absent
+    path:
+  with_items:
+    - /var/cache/apk/
+    - /var/www/db/migrate/
