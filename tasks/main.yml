@@ -41,6 +41,10 @@
 - name: Copy all node data
   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
   
+- name: Get npm version
+  command: cat Gemfile.lock | tail -n 1 | tr -d ' '
+  register: bundle_version
+ 
 - name: Install Bundler
   gem:
     name: '{{ item.gem }}'
@@ -48,7 +52,7 @@
     state: present
     user_install: no
   with_items:
-    - { gem: bundler, version: 1.17.3 }
+    - { gem: bundler, version: '{{ bundle_version }}' }
     - { gem: executable-hooks, version: 1.6.0 }
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
