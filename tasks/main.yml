@@ -12,6 +12,7 @@
       - tzdata
       - nodejs
       - libcurl
+      - ncurses
       - autoconf
       - readline
       - readline-dev
