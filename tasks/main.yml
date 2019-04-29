@@ -12,6 +12,7 @@
       - nodejs
       - libcurl
       - ncurses
+      - ruby-dev
       - build-base
       - alpine-sdk
       - libffi-dev
