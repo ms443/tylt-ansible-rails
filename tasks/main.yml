@@ -86,6 +86,7 @@
   with_items:
       - git
       - rsync
+      - ruby-dev
       - build-base
       - alpine-sdk
       - jemalloc-dev
