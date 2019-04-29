@@ -32,13 +32,6 @@
   shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}" && rvm cleanup all
   args:
     executable: /bin/bash
-
-- name: Remove unnecessary packages
-  apk:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-      - ruby-dev
       
 - name: Creating project_root directory
   file:
@@ -66,6 +59,15 @@
     - { gem: executable-hooks, version: 1.6.0 }
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+    
+- name: Symlink ruby
+  file:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    state: link
+    force: yes
+  with_items:
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle", dest: "/usr/bin/bundle" }
 
 - name: Install all gems
   bundler:
