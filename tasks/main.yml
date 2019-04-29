@@ -29,7 +29,7 @@
   with_items: "{{ additional_packages }}"
   
 - name: Check current ruby version
-  shell: test "$(rvm current 2> /dev/null)" = ruby-{{ ruby_version }}@global
+  shell:rvm use {{ ruby_version }}
   register: ruby_installed
   ignore_errors: true
   args:
