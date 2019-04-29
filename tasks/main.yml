@@ -29,7 +29,7 @@
   with_items: "{{ additional_packages }}"
   
 - name: Install ruby version
-  shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }} && rvm cleanup all"
+  shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}" && rvm cleanup all
   args:
     executable: /bin/bash
 
