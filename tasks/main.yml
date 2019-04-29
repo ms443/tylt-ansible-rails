@@ -8,18 +8,14 @@
       - curl
       - grep
       - rsync
-      - patch
       - tzdata
       - nodejs
       - libcurl
       - ncurses
       - autoconf
-      - readline
-      - readline-dev
       - build-base
       - alpine-sdk
       - libffi-dev
-      - libxml2-dev
       - libxslt-dev
       - jemalloc-dev
       - linux-headers
@@ -90,19 +86,19 @@
     - /root/.bash_profile
     - /root/.bashrc
 
-#- name: Remove unnecessary packages
-#  apk:
-#    name: "{{ item }}"
-#    state: absent
-#  with_items:
-#      - git
-#      - rsync
-#      - build-base
-#      - alpine-sdk
-#      - jemalloc-dev
-#      - linux-headers
-#      - libxslt-dev 
-#      - libffi-dev
+- name: Remove unnecessary packages
+  apk:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+      - git
+      - rsync
+      - build-base
+      - alpine-sdk
+      - jemalloc-dev
+      - linux-headers
+      - libxslt-dev 
+      - libffi-dev
 
 - name: Clean migrations and apk
   file:
