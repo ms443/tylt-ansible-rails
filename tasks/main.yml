@@ -12,7 +12,6 @@
       - nodejs
       - libcurl
       - ncurses
-      - autoconf
       - build-base
       - alpine-sdk
       - libffi-dev
