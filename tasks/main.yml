@@ -13,6 +13,8 @@
       - nodejs
       - libcurl
       - autoconf
+      - readline
+      - readline-dev
       - build-base
       - alpine-sdk
       - libffi-dev
