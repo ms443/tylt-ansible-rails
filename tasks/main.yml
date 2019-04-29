@@ -8,17 +8,18 @@
       - curl
       - grep
       - rsync
+      - patch
       - tzdata
+      - nodejs
       - libcurl
+      - autoconf
       - build-base
       - alpine-sdk
-      - jemalloc-dev
-      - readline-dev
-      - postgresql-dev
-      - linux-headers
-      - libxslt-dev 
       - libffi-dev
-      - nodejs
+      - libxslt-dev
+      - jemalloc-dev
+      - linux-headers
+      - postgresql-dev
       
 - name: Install additional packages 
   apk:
