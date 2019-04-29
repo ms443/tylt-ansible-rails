@@ -33,6 +33,13 @@
   args:
     executable: /bin/bash
 
+- name: Remove unnecessary packages
+  apk:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+      - ruby-dev
+      
 - name: Creating project_root directory
   file:
     path: /var/www
@@ -86,7 +93,6 @@
   with_items:
       - git
       - rsync
-      - ruby-dev
       - build-base
       - alpine-sdk
       - jemalloc-dev
