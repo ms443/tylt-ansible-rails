@@ -68,6 +68,12 @@
     force: yes
   with_items:
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle", dest: "/usr/bin/bundle" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
+    
 
 - name: Install all gems
   bundler:
