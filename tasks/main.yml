@@ -42,7 +42,7 @@
   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
   
 - name: Get bundle version
-  command: "tail -n 1 Gemfile.lock | tr -d ' '"
+  command: tail -n 1 Gemfile.lock | tr -d ' '
   register: bundle_version
  
 - name: Install Bundler
