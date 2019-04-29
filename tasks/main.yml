@@ -63,6 +63,8 @@
     name: bundler
     state: present
     user_install: no
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
 - name: Install all gems
   bundler:
