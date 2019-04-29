@@ -60,12 +60,13 @@
   
 - name: Install Bundler
   gem:
-    name: '{{ item }}'
+    name: '{{ item.gem }}'
+    version: '{{ item.version }}'
     state: present
     user_install: no
   with_items:
-    - bundler
-    - executable-hooks
+    - { gem: bundler, version: 1.17.3 }
+    - { gem: executable-hooks, version: 1.6.0 }
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
