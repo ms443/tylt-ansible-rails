@@ -32,6 +32,8 @@
   shell: test "$(rvm current 2> /dev/null)" = ruby-{{ ruby_version }}@global
   register: ruby_installed
   ignore_errors: true
+  args:
+    executable: /bin/bash
   
 - name: Install ruby version
   shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}" && rvm cleanup all
