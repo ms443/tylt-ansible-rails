@@ -62,6 +62,7 @@
     version: '{{ item.version }}'
     state: present
     user_install: no
+    build_flags: "--force"
   with_items:
     - { gem: bundler, version: '{{ bundle_version.stdout }}' }
     - { gem: executable-hooks, version: 1.6.0 }
