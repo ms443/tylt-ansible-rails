@@ -56,22 +56,20 @@
   args:
     executable: /bin/bash
 
-- name: Remove Bundler
-  gem:
-    name: 'bundler'
-    state: absent
-    user_install: no
+- name: Force install Bundler
+  shell: gem install bundler -v "{{ bundle_version.stdout }}" --force
+  args:
+    executable: /bin/bash
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
-    
-- name: Install Bundler
+
+- name: Install xecutable-hooks
   gem:
-    name: '{{ item.gem }}'
-    version: '{{ item.version }}'
+    name: 'xecutable-hooks'
+    version: '1.6.0'
     state: present
     user_install: no
   with_items:
-    - { gem: bundler, version: '{{ bundle_version.stdout }}' }
     - { gem: executable-hooks, version: 1.6.0 }
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
