@@ -64,7 +64,6 @@
     user_install: no
   with_items:
     - { gem: bundler, version: '{{ bundle_version.stdout }}' }
-    - { gem: executable-hooks, version: 1.6.0 }
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
     
