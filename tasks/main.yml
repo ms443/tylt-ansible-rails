@@ -58,12 +58,9 @@
 
 - name: Remove Bundler
   gem:
-    name: '{{ item.gem }}'
-    version: '{{ item.version }}'
+    name: 'bundler'
     state: absent
     user_install: no
-  with_items:
-    - { gem: bundler, version: '{{ bundle_version.stdout }}' }
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
     
