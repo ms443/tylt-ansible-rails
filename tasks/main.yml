@@ -63,9 +63,9 @@
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
-- name: Install xecutable-hooks
+- name: Install executable-hooks
   gem:
-    name: 'xecutable-hooks'
+    name: 'executable-hooks'
     version: '1.6.0'
     state: present
     user_install: no
