@@ -55,7 +55,19 @@
   register: bundle_version
   args:
     executable: /bin/bash
- 
+
+- name: Remove Bundler
+  gem:
+    name: '{{ item.gem }}'
+    version: '{{ item.version }}'
+    state: absent
+    user_install: no
+  with_items:
+    - { gem: bundler, version: '{{ bundle_version.stdout }}' }
+    - { gem: executable-hooks, version: 1.6.0 }
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+    
 - name: Install Bundler
   gem:
     name: '{{ item.gem }}'
