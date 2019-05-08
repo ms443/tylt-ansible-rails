@@ -110,17 +110,8 @@
     extra_args: "--without development test"
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
-  when: bundle_version|failed
-
-- name: Add ruby bin to $PATH.
-  lineinfile:
-    dest: '{{ item }}'
-    line: 'PATH=$PATH:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin'
-  with_items:
-    - /root/.profile
-    - /root/.bash_profile
-    - /root/.bashrc
-
+  when: rails_dependencies|failed
+  
 - name: Remove unnecessary packages
   apk:
     name: "{{ item }}"
@@ -135,6 +126,16 @@
       - linux-headers
       - libxslt-dev 
       - libffi-dev
+  when: rails_dependencies|failed
+      
+- name: Add ruby bin to $PATH.
+  lineinfile:
+    dest: '{{ item }}'
+    line: 'PATH=$PATH:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin'
+  with_items:
+    - /root/.profile
+    - /root/.bash_profile
+    - /root/.bashrc
 
 - name: Clean migrations and apk
   file:
