@@ -12,13 +12,6 @@
       - nodejs
       - libcurl
       - ncurses
-      - ruby-dev
-      - build-base
-      - alpine-sdk
-      - libffi-dev
-      - libxslt-dev
-      - jemalloc-dev
-      - linux-headers
       - postgresql-dev
       
 - name: Install additional packages 
@@ -55,14 +48,7 @@
   register: bundle_version
   args:
     executable: /bin/bash
-
-- name: Force install Bundler
-  shell: gem install bundler -v "{{ bundle_version.stdout }}" --force
-  args:
-    executable: /bin/bash
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
-
+    
 - name: Install executable-hooks
   gem:
     name: 'executable-hooks'
@@ -74,6 +60,34 @@
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
     
+- name: Force install Bundler
+  shell: gem install bundler -v "{{ bundle_version.stdout }}" --force
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+    
+- name: Bundle check
+  shell: bundle check
+  ignore_errors: true
+  register: rails_dependencies
+  args:
+    executable: /bin/bash
+    
+- name: Ensure packages are installed
+  apk:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+      - ruby-dev
+      - build-base
+      - alpine-sdk
+      - jemalloc-dev
+      - linux-headers
+      - libxslt-dev 
+      - libffi-dev
+  when: rails_dependencies|failed
+
 - name: Symlink ruby
   file:
     src: '{{ item.src }}'
@@ -88,7 +102,6 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
     
-
 - name: Install all gems
   bundler:
     state: present
@@ -98,6 +111,7 @@
     extra_args: "--without development test"
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+  when: bundle_version|failed
 
 - name: Add ruby bin to $PATH.
   lineinfile:
