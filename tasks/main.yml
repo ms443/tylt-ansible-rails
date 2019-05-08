@@ -55,8 +55,6 @@
     version: '1.6.0'
     state: present
     user_install: no
-  with_items:
-    - { gem: executable-hooks, version: 1.6.0 }
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
     
@@ -69,12 +67,13 @@
     
 - name: Bundle check
   shell: bundle check
+    chdir: /var/www
   ignore_errors: true
   register: rails_dependencies
   args:
     executable: /bin/bash
     
-- name: Ensure packages are installed
+- name: Ensure build packages are installed
   apk:
     name: "{{ item }}"
     update_cache: yes
