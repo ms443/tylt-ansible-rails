@@ -43,10 +43,25 @@
   when: ruby_installed|failed
   
 - name: Install ruby version
-  shell: source ~/.rvm/scripts/rvm && rvm install {{ ruby_version }} && rvm use {{ ruby_version }} && rvm cleanup all
+  shell: source ~/.rvm/scripts/rvm && rvm install {{ ruby_version }} && rvm cleanup all
   args:
     executable: /bin/bash
   when: ruby_installed|failed
+      
+- name: Symlink ruby
+  file:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    state: link
+    force: yes
+  with_items:
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle", dest: "/usr/bin/bundle" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
+  when: ruby_installed|failed or bundler_installed|failed
       
 - name: Creating project_root directory
   file:
@@ -84,6 +99,9 @@
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: ruby_installed|failed or bundler_installed|failed
+  
+- name: Check bundle version
+  command: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle
     
 - name: Bundle check
   shell: bundle check
@@ -106,21 +124,6 @@
       - libxslt-dev 
       - libffi-dev
   when: rails_dependencies|failed
-
-- name: Symlink ruby
-  file:
-    src: '{{ item.src }}'
-    dest: '{{ item.dest }}'
-    state: link
-    force: yes
-  with_items:
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle", dest: "/usr/bin/bundle" }
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
-  when: ruby_installed|failed or bundler_installed|failed
     
 - name: Install all gems
   bundler:
