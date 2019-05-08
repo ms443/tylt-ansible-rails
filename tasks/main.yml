@@ -103,6 +103,9 @@
 - name: Check bundle version
   command: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle -v
   
+- name: Check bundle version
+  command: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundler -v
+  
 - name: Check bundle root
   command: ls -la /root/.rvm/rubies/ruby-{{ ruby_version }}/bin
   
