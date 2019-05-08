@@ -67,11 +67,11 @@
     
 - name: Bundle check
   shell: bundle check
-    chdir: /var/www
   ignore_errors: true
   register: rails_dependencies
   args:
     executable: /bin/bash
+    chdir: /var/www
     
 - name: Ensure build packages are installed
   apk:
