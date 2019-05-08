@@ -147,7 +147,7 @@
       - linux-headers
       - libxslt-dev 
       - libffi-dev
-  when: rails_dependencies|failed
+  when: rails_dependencies|failed or ruby_installed|failed
       
 - name: Add ruby bin to $PATH.
   lineinfile:
