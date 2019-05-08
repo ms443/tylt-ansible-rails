@@ -83,7 +83,7 @@
     executable: /bin/bash
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
-  when: bundler_installed|failed
+  when: rails_dependencies|failed or bundler_installed|failed
     
 - name: Bundle check
   shell: bundle check
@@ -121,12 +121,6 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
   when: ruby_installed|failed or bundler_installed|failed
-    
-- name: Bundle version check
-  command: /usr/bin/bundle -v
-  
-- name: Bundle version check
-  command: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle -v
     
 - name: Install all gems
   bundler:
