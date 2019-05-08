@@ -27,6 +27,20 @@
   ignore_errors: true
   args:
     executable: /bin/bash
+    
+- name: Ensure build packages are installed
+  apk:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+      - ruby-dev
+      - build-base
+      - alpine-sdk
+      - jemalloc-dev
+      - linux-headers
+      - libxslt-dev 
+      - libffi-dev
+  when: ruby_installed|failed
   
 - name: Install ruby version
   shell: source ~/.rvm/scripts/rvm && rvm install "{{ ruby_version }}" && rvm cleanup all
