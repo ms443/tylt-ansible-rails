@@ -57,7 +57,15 @@
     user_install: no
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
-    
+
+- name: Current Bundler version
+  shell: bundle -v
+  register: current_bundler_version
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+
 - name: Force install Bundler
   shell: gem install bundler -v "{{ bundle_version.stdout }}" --force
   args:
