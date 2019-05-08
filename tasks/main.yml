@@ -114,7 +114,7 @@
     state: link
     force: yes
   with_items:
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle", dest: "/usr/bin/bundle" }
+    #- { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle", dest: "/usr/bin/bundle" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
