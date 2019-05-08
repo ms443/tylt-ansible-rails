@@ -101,8 +101,14 @@
   when: ruby_installed|failed or bundler_installed|failed
   
 - name: Check bundle version
-  command: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle
-    
+  command: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle -v
+  
+- name: Check bundle root
+  command: ls -la /root/.rvm/rubies/ruby-{{ ruby_version }}/bin
+  
+- name: Check bundle root
+  command: ls -la /root/.rvm/rubies/ruby-{{ ruby_version }}
+  
 - name: Bundle check
   shell: bundle check
   ignore_errors: true
