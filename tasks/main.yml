@@ -83,7 +83,7 @@
     executable: /bin/bash
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
-  when: rails_dependencies|failed or bundler_installed|failed
+  when: ruby_installed|failed or bundler_installed|failed
     
 - name: Bundle check
   shell: bundle check
