@@ -59,7 +59,7 @@
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
 - name: Check current bundler version
-  shell: test "$(bundler -v 2> /dev/null)" = "Bundler version {{bundle_version.stdout}}"
+  shell: test "$(bundler -v 2> /dev/null) = Bundler version {{bundle_version.stdout}}"
   register: bundler_installed
   ignore_errors: true
 
