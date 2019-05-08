@@ -58,13 +58,10 @@
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
-- name: Current Bundler version
-  shell: bundle -v
-  register: current_bundler_version
-  args:
-    executable: /bin/bash
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+- name: Check current node version
+  shell: test "$(bundler -v 2> /dev/null)" = "Bundler version {{bundle_version.stdout}}"
+  register: bundler_installed
+  ignore_errors: true
 
 - name: Force install Bundler
   shell: gem install bundler -v "{{ bundle_version.stdout }}" --force
@@ -72,6 +69,7 @@
     executable: /bin/bash
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+  when: bundler_installed|failed
     
 - name: Bundle check
   shell: bundle check
