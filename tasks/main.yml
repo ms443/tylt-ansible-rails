@@ -124,6 +124,9 @@
     
 - name: Bundle version check
   command: /usr/bin/bundle -v
+  
+- name: Bundle version check
+  command: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle -v
     
 - name: Install all gems
   bundler:
