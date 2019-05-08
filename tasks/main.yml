@@ -78,11 +78,19 @@
   ignore_errors: true
 
 - name: Force install Bundler
-  shell: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem install bundler -v "{{ bundle_version.stdout }}" --force
+  shell: gem install bundler -v "{{ bundle_version.stdout }}" --force
   args:
     executable: /bin/bash
   environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+    PATH: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+  when: ruby_installed|failed or bundler_installed|failed
+  
+- name: Force install Bundler
+  shell: gem environment
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: ruby_installed|failed or bundler_installed|failed
   
 - name: Symlink ruby
@@ -99,18 +107,6 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
   when: ruby_installed|failed or bundler_installed|failed
-  
-- name: Check bundle version
-  command: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle -v
-  
-- name: Check bundle version
-  command: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundler -v
-  
-- name: Check bundle root
-  command: ls -la /root/.rvm/rubies/ruby-{{ ruby_version }}/bin
-  
-- name: Check bundle root
-  command: ls -la /root/.rvm/rubies/ruby-{{ ruby_version }}
   
 - name: Bundle check
   shell: bundle check
