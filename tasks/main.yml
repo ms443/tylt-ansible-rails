@@ -42,6 +42,19 @@
       - libffi-dev
   when: ruby_installed|failed
   
+- name: Remove all ruby related files
+  file:
+    src: '{{ item }}'
+    state: absent
+  with_items:
+    - "/usr/bin/bundle"
+    - "/usr/bin/ruby"
+    - "/usr/bin/gem"
+    - "/usr/bin/erb"
+    - "/usr/bin/irb"
+    - "/usr/bin/rake"
+  when: ruby_installed|failed
+  
 - name: Install ruby version
   shell: source ~/.rvm/scripts/rvm && rvm install {{ ruby_version }} && rvm cleanup all
   args:
@@ -90,7 +103,7 @@
   args:
     executable: /bin/bash
   environment:
-    PATH: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: ruby_installed|failed or bundler_installed|failed
   
 - name: Symlink ruby
