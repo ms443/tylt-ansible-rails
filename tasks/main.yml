@@ -81,10 +81,13 @@
 
 - name: Install executable-hooks
   gem:
-    name: 'executable-hooks'
+    name: "{{ item }}"
     version: '1.6.0'
     state: present
     user_install: no
+  with_items:
+    - executable-hooks
+    - i18n
   when: ruby_installed|failed
 
 - name: Check current bundler version
