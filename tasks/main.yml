@@ -77,6 +77,12 @@
   register: bundler_installed
   ignore_errors: true
 
+- name: Force install Bundler
+  shell: source ~/.rvm/scripts/rvm && rvm use {{ ruby_version }} which gem && gem install bundler -v "{{ bundle_version.stdout }}" --force && which bundle && bundle -v
+  args:
+    executable: /bin/bash
+  when: ruby_installed|failed or bundler_installed|failed
+  
 - name: Symlink ruby
   file:
     src: '{{ item.src }}'
@@ -90,14 +96,6 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
-  when: ruby_installed|failed or bundler_installed|failed
-
-- name: Force install Bundler
-  shell: which gem && gem install bundler -v "{{ bundle_version.stdout }}" --force && which bundle && bundle -v
-  args:
-    executable: /bin/bash
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: ruby_installed|failed or bundler_installed|failed
   
 - name: Bundle check
