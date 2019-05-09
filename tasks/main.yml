@@ -87,7 +87,7 @@
   ignore_errors: true
   
 - name: Find Bundler Version
-  shell: find / -name "bundle"
+  shell: find / -name "*2.0.1*"
   args:
     executable: /bin/bash
   environment:
