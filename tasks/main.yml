@@ -96,7 +96,7 @@
   ignore_errors: true
   
 - name: Find Bundler Version
-  shell: ls -la /root/.rvm/gems/ruby-2.6.3/gems/bundler-2.0.1
+  shell: ls -la /root/.rvm/gems/ruby-{{ ruby_version }}/gems/bundler-{{ bundle_version.stdout }}/exe
   args:
     executable: /bin/bash
   environment:
@@ -148,7 +148,7 @@
     deployment_mode: yes
     clean: yes
     extra_args: "--without development test"
-    executable: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle"
+    executable: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle/"
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: rails_dependencies|failed
