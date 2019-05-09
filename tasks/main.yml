@@ -87,20 +87,12 @@
   ignore_errors: true
   
 - name: Find Bundler Version
-  shell: find / -name "bundler-{{ bundle_version.stdout }}"
+  shell: find / -name "bundler-{{ bundle_version.stdout }}" | head -n 1
   args:
     executable: /bin/bash
+  register: bundler_location
   when: ruby_installed|failed or bundler_installed|failed
-  
-- name: Find Bundler Version
-  shell: ls -la /root/.rvm/gems/ruby-{{ ruby_version }}/gems/bundler-{{ bundle_version.stdout }}/exe
-  args:
-    executable: /bin/bash
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
-  when: ruby_installed|failed or bundler_installed|failed
-  ignore_errors: true
-  
+ 
 - name: Symlink ruby
   file:
     src: '{{ item.src }}'
@@ -108,7 +100,7 @@
     state: link
     force: yes
   with_items:
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle", dest: "/usr/bin/bundle" }
+    - { src: "{{ bundler_location.stdout }}", dest: "/usr/bin/bundle" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
