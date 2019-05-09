@@ -5,6 +5,7 @@
     update_cache: yes
   with_items:
       - git
+      - tar
       - curl
       - grep
       - rsync
