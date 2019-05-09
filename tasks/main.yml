@@ -44,7 +44,7 @@
   
 - name: Remove all ruby related files
   file:
-    src: '{{ item }}'
+    path: '{{ item }}'
     state: absent
   ignore_errors: true
   with_items:
