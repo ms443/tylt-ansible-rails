@@ -78,7 +78,7 @@
   ignore_errors: true
 
 - name: Force install Bundler
-  shell: rvm @global do gem install bundler -v "{{ bundle_version.stdout }}" --force --no-ri --no-rdoc end
+  shell: gem install bundler -v "{{ bundle_version.stdout }}" --force --no-ri --no-rdoc end
   args:
     executable: /bin/bash
   environment:
@@ -87,7 +87,7 @@
   ignore_errors: true
   
 - name: Bundler Version
-  shell: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle -v
+  shell: ls -al /root/.rvm/rubies/ruby-2.6.3/lib/ruby/gems
   args:
     executable: /bin/bash
   environment:
