@@ -13,7 +13,6 @@
       - nodejs
       - libcurl
       - ncurses
-      - libxml2
       - postgresql-dev
       
 - name: Install additional packages 
@@ -22,6 +21,15 @@
     update_cache: yes
   when: additional_packages
   with_items: "{{ additional_packages }}"
+  
+- name: Copy all node data
+  command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
+  
+- name: Get bundle version
+  shell: tail -n 1 /var/www/Gemfile.lock | tr -d ' '
+  register: bundle_version
+  args:
+    executable: /bin/bash
   
 - name: Check current ruby version
   shell: source ~/.rvm/scripts/rvm && rvm use {{ ruby_version }}
@@ -45,7 +53,7 @@
   when: ruby_installed|failed
   
 - name: Install ruby version
-  shell: source ~/.rvm/scripts/rvm && rvm install {{ ruby_version }} && rvm cleanup all
+  shell: source ~/.rvm/scripts/rvm && rvm install {{ ruby_version }} && rvm cleanup all && gem install bundle:{{ bundle_version.stdout }}
   args:
     executable: /bin/bash
   when: ruby_installed|failed
@@ -55,15 +63,6 @@
     path: /var/www
     state: directory
     mode: 0755
-
-- name: Copy all node data
-  command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
-  
-- name: Get bundle version
-  shell: tail -n 1 /var/www/Gemfile.lock | tr -d ' '
-  register: bundle_version
-  args:
-    executable: /bin/bash
     
 - name: Symlink ruby
   file:
@@ -91,12 +90,8 @@
     - executable-hooks
   when: ruby_installed|failed
   
-- name: Check wrappers
-  command: ls -la /root/.rvm/wrappers
-  when: ruby_installed|failed
-
 - name: Check current bundler version
-  shell: test "$(bundle -v 2> /dev/null)" = "Bundler version {{bundle_version.stdout}}"
+  shell: test "$(bundle -v 2> /dev/null)" = "Bundler version {{ bundle_version.stdout }}"
   register: bundler_installed
   ignore_errors: true
 
