@@ -87,11 +87,10 @@
   ignore_errors: true
   
 - name: Find Bundler Version
-  shell: find / -perm /u=x,g=x,o=x -type f -name "bundle"
+  shell: find / -perm /u=x,g=x,o=x -type f -name "bundle" | grep "ruby-{{ ruby_version }}"
   args:
     executable: /bin/bash
   when: ruby_installed|failed or bundler_installed|failed
-  ignore_errors: true
   
 - name: Find Bundler Version
   shell: ls -la /root/.rvm/gems/ruby-{{ ruby_version }}/gems/bundler-{{ bundle_version.stdout }}/exe
