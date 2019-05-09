@@ -92,11 +92,11 @@
   ignore_errors: true
 
 - name: Force install Bundler
-  shell: gem install bundler -v "{{ bundle_version.stdout }}" --force
+  shell: gem environment
   args:
     executable: /bin/bash
   environment:
-    PATH: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: ruby_installed|failed or bundler_installed|failed
   
 - name: Force install Bundler
