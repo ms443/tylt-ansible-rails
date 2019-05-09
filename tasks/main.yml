@@ -139,6 +139,7 @@
     deployment_mode: yes
     clean: yes
     extra_args: "--without development test"
+    executable: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle"
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: rails_dependencies|failed
