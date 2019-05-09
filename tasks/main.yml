@@ -78,13 +78,12 @@
   ignore_errors: true
 
 - name: Force install Bundler
-  shell: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem install bundler -v "{{ bundle_version.stdout }}" --force
+  shell: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem install bundler -v "{{ bundle_version.stdout }}" --force --no-document
   args:
     executable: /bin/bash
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: ruby_installed|failed or bundler_installed|failed
-  ignore_errors: true
   
 - name: Find Bundler Version
   shell: find / -name "bundler-{{ bundle_version.stdout }}" | head -n 1
