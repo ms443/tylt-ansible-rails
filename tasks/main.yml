@@ -99,7 +99,6 @@
     state: link
     force: yes
   with_items:
-    - { src: "{{ bundler_location.stdout }}/exe/bundle", dest: "/usr/bin/bundle" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
@@ -136,6 +135,7 @@
     deployment_mode: yes
     clean: yes
     extra_args: "--without development test"
+    executable: "{{ bundler_location.stdout }}/exe/bundle"
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: rails_dependencies|failed
