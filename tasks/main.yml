@@ -69,7 +69,7 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby_executable_hooks", dest: "/usr/bin/ruby_executable_hooks" }
-  when: ruby_installed|failed
+  #when: ruby_installed|failed
 
 - name: Install executable-hooks
   gem:
