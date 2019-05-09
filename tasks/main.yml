@@ -83,14 +83,20 @@
     executable: /bin/bash
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
-  when: ruby_installed|failed or bundler_installed|failed
+  when: bundler_installed|failed
   
 - name: Find Bundler Version
   shell: find / -name "bundler-{{ bundle_version.stdout }}" | head -n 1
   args:
     executable: /bin/bash
   register: bundler_location
-  when: ruby_installed|failed or bundler_installed|failed
+  when: bundler_installed|failed
+  
+- name: Check Bundle Version
+  shell: "{{ bundler_location.stdout }}/exe/bundle -v"
+  args:
+    executable: /bin/bash
+  when: bundler_installed|failed
  
 - name: Symlink ruby
   file:
@@ -104,7 +110,7 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
-  when: ruby_installed|failed or bundler_installed|failed
+  when: ruby_installed|failed
   
 - name: Bundle check
   shell: bundle check
@@ -127,11 +133,6 @@
       - libxslt-dev 
       - libffi-dev
   when: rails_dependencies|failed
-    
-- name: Check Bundle Version
-  shell: "{{ bundler_location.stdout }}/exe/bundle -v"
-  args:
-    executable: /bin/bash
     
 - name: Install all gems
   bundler:
