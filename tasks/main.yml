@@ -95,6 +95,15 @@
   when: ruby_installed|failed or bundler_installed|failed
   ignore_errors: true
   
+- name: Find Bundler Version
+  shell: ls -la /root/.rvm/gems/ruby-2.6.3/gems/bundler-2.0.1
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+  when: ruby_installed|failed or bundler_installed|failed
+  ignore_errors: true
+  
 - name: Symlink ruby
   file:
     src: '{{ item.src }}'
