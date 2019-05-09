@@ -53,7 +53,7 @@
   when: ruby_installed|failed
   
 - name: Install ruby version
-  shell: source ~/.rvm/scripts/rvm && rvm install {{ ruby_version }} && rvm cleanup all && gem install bundle:{{ bundle_version.stdout }}
+  shell: source ~/.rvm/scripts/rvm && rvm install {{ ruby_version }} && rvm cleanup all && gem install bundler:{{ bundle_version.stdout }}
   args:
     executable: /bin/bash
   when: ruby_installed|failed
