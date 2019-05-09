@@ -46,13 +46,14 @@
   file:
     src: '{{ item }}'
     state: absent
+  ignore_errors: true
   with_items:
-    - "/usr/bin/bundle"
-    - "/usr/bin/ruby"
-    - "/usr/bin/gem"
-    - "/usr/bin/erb"
-    - "/usr/bin/irb"
-    - "/usr/bin/rake"
+    - /usr/bin/bundle
+    - /usr/bin/ruby
+    - /usr/bin/gem
+    - /usr/bin/erb
+    - /usr/bin/irb
+    - /usr/bin/rake
   when: ruby_installed|failed
   
 - name: Install ruby version
