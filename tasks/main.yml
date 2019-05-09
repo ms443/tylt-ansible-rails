@@ -42,19 +42,6 @@
       - libffi-dev
   when: ruby_installed|failed
   
-- name: Remove all ruby related files
-  file:
-    path: '{{ item }}'
-    state: absent
-  ignore_errors: true
-  with_items:
-    - /usr/bin/bundle
-    - /usr/bin/gem
-    - /usr/bin/erb
-    - /usr/bin/irb
-    - /usr/bin/rake
-  when: ruby_installed|failed
-  
 - name: Install ruby version
   shell: source ~/.rvm/scripts/rvm && rvm install {{ ruby_version }} && rvm cleanup all
   args:
@@ -90,14 +77,6 @@
   register: bundler_installed
   ignore_errors: true
 
-- name: Force install Bundler
-  shell: source ~/.rvm/scripts/rvm && rvm use {{ ruby_version }} && gem install bundler -v "{{ bundle_version.stdout }}" --force
-  args:
-    executable: /bin/bash
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
-  when: ruby_installed|failed or bundler_installed|failed
-  
 - name: Symlink ruby
   file:
     src: '{{ item.src }}'
@@ -111,6 +90,14 @@
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
+  when: ruby_installed|failed or bundler_installed|failed
+
+- name: Force install Bundler
+  shell: which gem && gem install bundler -v "{{ bundle_version.stdout }}" --force && which bundle && bundle -v
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: ruby_installed|failed or bundler_installed|failed
   
 - name: Bundle check
