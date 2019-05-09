@@ -87,7 +87,7 @@
   ignore_errors: true
   
 - name: Find Bundler Version
-  shell: find / -perm /u=x,g=x,o=x -type f -name "bundle" | grep ruby-{{ ruby_version }} | head -n 1
+  shell: find / -perm /u=x,g=x,o=x -type f -name "bundle"
   args:
     executable: /bin/bash
   when: ruby_installed|failed or bundler_installed|failed
