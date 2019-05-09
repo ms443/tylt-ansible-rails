@@ -85,8 +85,7 @@
     version: '1.6.0'
     state: present
     user_install: no
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+  when: ruby_installed|failed
 
 - name: Check current bundler version
   shell: test "$(bundle -v 2> /dev/null)" = "Bundler version {{bundle_version.stdout}}"
@@ -97,8 +96,6 @@
   shell: gem install bundler -v "{{ bundle_version.stdout }}" --force --no-document
   args:
     executable: /bin/bash
-  environment:
-    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: bundler_installed|failed
   
 - name: Bundle check
