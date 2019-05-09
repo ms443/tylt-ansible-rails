@@ -22,15 +22,6 @@
   when: additional_packages
   with_items: "{{ additional_packages }}"
   
-- name: Copy all node data
-  command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
-  
-- name: Get bundle version
-  shell: tail -n 1 /var/www/Gemfile.lock | tr -d ' '
-  register: bundle_version
-  args:
-    executable: /bin/bash
-  
 - name: Check current ruby version
   shell: source ~/.rvm/scripts/rvm && rvm use {{ ruby_version }}
   register: ruby_installed
@@ -53,7 +44,7 @@
   when: ruby_installed|failed
   
 - name: Install ruby version
-  shell: source ~/.rvm/scripts/rvm && rvm install {{ ruby_version }} && rvm cleanup all && gem install bundler:{{ bundle_version.stdout }}
+  shell: source ~/.rvm/scripts/rvm && rvm install {{ ruby_version }} && rvm cleanup all
   args:
     executable: /bin/bash
   when: ruby_installed|failed
@@ -89,6 +80,15 @@
   with_items:
     - executable-hooks
   when: ruby_installed|failed
+ 
+ - name: Copy all node data
+  command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
+ 
+ - name: Get bundle version
+  shell: tail -n 1 /var/www/Gemfile.lock | tr -d ' '
+  register: bundle_version
+  args:
+    executable: /bin/bash 
   
 - name: Check current bundler version
   shell: test "$(bundle -v 2> /dev/null)" = "Bundler version {{ bundle_version.stdout }}"
