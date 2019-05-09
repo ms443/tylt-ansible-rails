@@ -81,10 +81,10 @@
     - executable-hooks
   when: ruby_installed|failed
  
- - name: Copy all node data
-   command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
+- name: Copy all node data
+  command: rsync -auvh --delete --chown=root:root /tmp/railsapp/ /var/www/ --exclude vendor/bundle
  
- - name: Get bundle version
+- name: Get bundle version
   shell: tail -n 1 /var/www/Gemfile.lock | tr -d ' '
   register: bundle_version
   args:
