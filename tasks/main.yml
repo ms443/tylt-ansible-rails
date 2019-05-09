@@ -93,7 +93,7 @@
   ignore_errors: true
 
 - name: Force install Bundler
-  shell: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem install bundler -v "{{ bundle_version.stdout }}" --force --no-document
+  shell: gem install bundler -v "{{ bundle_version.stdout }}" --force --no-document
   args:
     executable: /bin/bash
   environment:
