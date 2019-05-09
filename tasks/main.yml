@@ -13,6 +13,7 @@
       - nodejs
       - libcurl
       - ncurses
+      - libxml2
       - postgresql-dev
       
 - name: Install additional packages 
