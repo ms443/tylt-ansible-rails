@@ -72,6 +72,21 @@
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
+- name: Symlink ruby
+  file:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    state: link
+    force: yes
+  with_items:
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle", dest: "/usr/bin/bundle" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
+  when: ruby_installed|failed
+
 - name: Check current bundler version
   shell: test "$(bundle -v 2> /dev/null) = Bundler version {{bundle_version.stdout}}"
   register: bundler_installed
@@ -99,21 +114,6 @@
   shell: which bundle
   args:
     executable: /bin/bash
- 
-- name: Symlink ruby
-  file:
-    src: '{{ item.src }}'
-    dest: '{{ item.dest }}'
-    state: link
-    force: yes
-  with_items:
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle", dest: "/usr/bin/bundle" }
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/irb", dest: "/usr/bin/irb" }
-    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/rake", dest: "/usr/bin/rake" }
-  when: ruby_installed|failed or bundler_installed|failed
   
 - name: Bundle check
   shell: bundle check
