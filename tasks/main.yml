@@ -88,14 +88,8 @@
   when: ruby_installed|failed
 
 - name: Check current bundler version
-  shell: echo "$(bundle -v 2> /dev/null)"
-  register: current_bundler_installed
-  ignore_errors: true
-
-- name: Check current bundler version
-  shell: test "{{ current_bundler_installed.stdout }} = Bundler version {{bundle_version.stdout}}"
+  shell: test "$(bundle -v 2> /dev/null) = Bundler version {{bundle_version.stdout}}"
   register: bundler_installed
-  ignore_errors: true
 
 - name: Force install Bundler
   shell: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem install bundler -v "{{ bundle_version.stdout }}" --force --no-document
