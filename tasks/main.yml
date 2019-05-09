@@ -84,6 +84,7 @@
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: ruby_installed|failed or bundler_installed|failed
+  ignore_errors: true
   
 - name: Symlink ruby
   file:
