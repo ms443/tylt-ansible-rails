@@ -129,7 +129,9 @@
   when: rails_dependencies|failed
     
 - name: Check Bundle Version
-  command: {{ bundler_location.stdout }}/exe/bundle -v
+  shell: "{{ bundler_location.stdout }}/exe/bundle -v"
+  args:
+    executable: /bin/bash
     
 - name: Install all gems
   bundler:
