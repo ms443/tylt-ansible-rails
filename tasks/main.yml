@@ -128,6 +128,9 @@
       - libffi-dev
   when: rails_dependencies|failed
     
+- name: Check Bundle Version
+  command: {{ bundler_location.stdout }}/exe/bundle -v
+    
 - name: Install all gems
   bundler:
     state: present
