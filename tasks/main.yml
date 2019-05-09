@@ -95,11 +95,19 @@
   register: bundler_installed
   ignore_errors: true
 
-- name: Force install Bundler
-  shell: gem install bundler -v "{{ bundle_version.stdout }}" --force --no-document
+- name: Upgrade Bundler
+  shell: bundle update --bundler
   args:
     executable: /bin/bash
   when: bundler_installed|failed
+  environment:
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
+
+#- name: Force install Bundler
+#  shell: gem install bundler -v "{{ bundle_version.stdout }}" --force --no-document
+#  args:
+#    executable: /bin/bash
+#  when: bundler_installed|failed
   
 - name: Bundle check
   shell: bundle check
