@@ -14,6 +14,7 @@
       - libcurl
       - ncurses
       - postgresql-dev
+      - gnu-libiconv-dev
       
 - name: Install additional packages 
   apk:
