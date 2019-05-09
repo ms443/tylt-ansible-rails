@@ -78,7 +78,7 @@
   ignore_errors: true
 
 - name: Force install Bundler
-  shell: source ~/.rvm/scripts/rvm && rvm use {{ ruby_version }} && gem install bundler -v "{{ bundle_version.stdout }}" --force
+  shell: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem install bundler -v "{{ bundle_version.stdout }}" --force
   args:
     executable: /bin/bash
   environment:
@@ -87,7 +87,7 @@
   ignore_errors: true
   
 - name: Find Bundler Version
-  shell: find / -perm /u=x,g=x,o=x -type f -name "bundle" | grep "ruby-{{ ruby_version }}"
+  shell: find / -perm /u=x,g=x,o=x -type f -name "bundle"
   args:
     executable: /bin/bash
   when: ruby_installed|failed or bundler_installed|failed
