@@ -86,14 +86,7 @@
   when: bundler_installed|failed
   
 - name: Find Bundler Version
-  shell: find / -name "bundler-{{ bundle_version.stdout }}" | head -n 1
-  args:
-    executable: /bin/bash
-  register: bundler_location
-  when: bundler_installed|failed
-  
-- name: Check Bundle Version
-  shell: "{{ bundler_location.stdout }}/exe/bundle -v"
+  shell: find / -name "bundler"
   args:
     executable: /bin/bash
   when: bundler_installed|failed
@@ -105,6 +98,7 @@
     state: link
     force: yes
   with_items:
+    - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/bundle", dest: "/usr/bin/bundle" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/ruby", dest: "/usr/bin/ruby" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem", dest: "/usr/bin/gem" }
     - { src: "/root/.rvm/rubies/ruby-{{ ruby_version }}/bin/erb", dest: "/usr/bin/erb" }
@@ -141,7 +135,6 @@
     deployment_mode: yes
     clean: yes
     extra_args: "--without development test"
-    executable: "{{ bundler_location.stdout }}/exe/bundle"
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: rails_dependencies|failed
