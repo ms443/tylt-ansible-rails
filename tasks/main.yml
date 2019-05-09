@@ -90,6 +90,7 @@
 - name: Check current bundler version
   shell: test "$(bundle -v 2> /dev/null)" = "Bundler version {{bundle_version.stdout}}"
   register: bundler_installed
+  ignore_errors: true
 
 - name: Force install Bundler
   shell: /root/.rvm/rubies/ruby-{{ ruby_version }}/bin/gem install bundler -v "{{ bundle_version.stdout }}" --force --no-document
