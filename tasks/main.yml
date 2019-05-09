@@ -89,19 +89,16 @@
   shell: find / -name "bundle"
   args:
     executable: /bin/bash
-  when: bundler_installed|failed
   
 - name: Find Bundler Version
   shell: bundle -v
   args:
     executable: /bin/bash
-  when: bundler_installed|failed
     
 - name: Find Bundler Version
   shell: which bundle
   args:
     executable: /bin/bash
-  when: bundler_installed|failed
  
 - name: Symlink ruby
   file:
