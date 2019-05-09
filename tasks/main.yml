@@ -73,7 +73,7 @@
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
 
 - name: Check current bundler version
-  shell: test "$(bundler -v 2> /dev/null) = Bundler version {{bundle_version.stdout}}"
+  shell: test "$(bundle -v 2> /dev/null) = Bundler version {{bundle_version.stdout}}"
   register: bundler_installed
   ignore_errors: true
 
@@ -86,20 +86,22 @@
   when: bundler_installed|failed
   
 - name: Find Bundler Version
-  shell: find / -name "bundler"
+  shell: find / -name "bundle"
   args:
     executable: /bin/bash
   when: bundler_installed|failed
   
 - name: Find Bundler Version
-  shell: bundler -v
+  shell: bundle -v
   args:
     executable: /bin/bash
+  when: bundler_installed|failed
     
 - name: Find Bundler Version
-  shell: which bundler
+  shell: which bundle
   args:
     executable: /bin/bash
+  when: bundler_installed|failed
  
 - name: Symlink ruby
   file:
