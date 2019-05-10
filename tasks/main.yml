@@ -102,7 +102,7 @@
   when: bundler_installed|failed
   
 - name: Bundle check
-  shell: bundle check
+  shell: bundle config git.allow_insecure true && bundle check
   ignore_errors: true
   register: rails_dependencies
   args:
