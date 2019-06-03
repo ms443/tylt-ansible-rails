@@ -2,7 +2,6 @@
 - name: Ensure packages are installed
   apk:
     name: "{{ item }}"
-    repository: "http://dl-cdn.alpinelinux.org/alpine/edge/community/"
     update_cache: yes
   with_items:
       - git
@@ -20,6 +19,7 @@
   apk:
     name: "{{ item }}"
     update_cache: yes
+    repository: "http://dl-cdn.alpinelinux.org/alpine/edge/community/"
   when: additional_packages
   with_items: "{{ additional_packages }}"
   
