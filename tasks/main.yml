@@ -145,7 +145,7 @@
     - /root/.bashrc
 
 - name: Run unit tests
-  shell: ping {{ docker_host }} 
+  shell: ping $TYLT_REMOTE_PG_HOST
   args:
     executable: /bin/bash
     chdir: /var/www
