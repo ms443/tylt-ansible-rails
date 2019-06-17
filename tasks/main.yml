@@ -145,7 +145,7 @@
     - /root/.bashrc
 
 - name: Run unit tests
-  shell: printenv
+  shell: bundle exec rspec
   args:
     executable: /bin/bash
     chdir: /var/www
@@ -160,6 +160,7 @@
     TYLT_REMOTE_REDIS_URL: "redis://localhost:6379"
     REMOTE_REDIS_URL: "redis://localhost:6379"
     TYLT_REMOTE_REDIS_PWD: ""
+    TYLT_REMOTE_PG_HOST: "127.0.0.1"
   
 - name: Remove unnecessary packages
   apk:
