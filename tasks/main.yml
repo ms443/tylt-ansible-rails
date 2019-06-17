@@ -145,7 +145,7 @@
     - /root/.bashrc
 
 - name: Run unit tests
-  shell: printenv
+  shell: bundle exec rake db:test:prepare
   args:
     executable: /bin/bash
     chdir: /var/www
