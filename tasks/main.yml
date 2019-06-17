@@ -180,7 +180,9 @@
     REMOTE_REDIS_URL: "redis://{{ docker_host }}:6379"
     TYLT_REMOTE_REDIS_PWD: ""
     TYLT_REMOTE_PG_HOST: "{{ docker_host }}"
-    #DATABASE_URL: "postgres://{{ docker_host }}:5432"
+    DATABASE_URL: "postgres://{{ docker_host }}:5432"
+    DATABASE_CLEANER_ALLOW_PRODUCTION: "true"
+    DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
   
 - name: Remove unnecessary packages
   apk:
