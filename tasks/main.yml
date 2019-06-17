@@ -145,7 +145,7 @@
     - /root/.bashrc
 
 - name: Run unit tests
-  shell: bundle exec rake db:test:prepare --trace
+  shell: bundle exec rake db:test:prepare --trace && bundle exec rspec --trace
   args:
     executable: /bin/bash
     chdir: /var/www
@@ -161,7 +161,6 @@
     REMOTE_REDIS_URL: "redis://{{ docker_host }}:6379"
     TYLT_REMOTE_REDIS_PWD: ""
     TYLT_REMOTE_PG_HOST: "{{ docker_host }}"
-    DISABLE_DATABASE_ENVIRONMENT_CHECK: "1"
     DATABASE_URL: "postgres://{{ docker_host }}:5432"
   
 - name: Remove unnecessary packages
