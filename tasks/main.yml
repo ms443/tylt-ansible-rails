@@ -145,7 +145,7 @@
     - /root/.bashrc
 
 - name: Run unit tests
-  shell: bundle exec rspec
+  shell: printenv
   args:
     executable: /bin/bash
     chdir: /var/www
