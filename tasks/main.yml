@@ -135,6 +135,11 @@
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: rails_dependencies|failed
   
+- name: Run unit tests
+  shell: bundle exec rspec 
+  args:
+    executable: /bin/bash
+  
 - name: Remove unnecessary packages
   apk:
     name: "{{ item }}"
