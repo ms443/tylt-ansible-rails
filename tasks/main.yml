@@ -145,7 +145,7 @@
     - /root/.bashrc
 
 - name: Run unit tests
-  shell: bundle exec rake db:test:prepare
+  shell: netstat
   args:
     executable: /bin/bash
     chdir: /var/www
