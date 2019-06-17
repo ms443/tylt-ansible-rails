@@ -130,7 +130,7 @@
     gemfile: "/var/www/Gemfile"
     deployment_mode: yes
     clean: yes
-    extra_args: "--without development test"
+    extra_args: "--without development"
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
   when: rails_dependencies|failed
