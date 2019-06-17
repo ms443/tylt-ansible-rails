@@ -155,10 +155,10 @@
     AWS_SECRETACCESSKEY: "Y/6QNB1bpY11WI8fCQ9vJFPrKVOZuF5FKaTNtGXs"
     AWS_ACCESSKEYID: "AKIAJOHZI35Z3E26DMZA"
     SECRET_KEYBASE: "29985e391392d9ca23ba58179baad40f3243b5f99a6fa3ee82a469ae0e10de6b49b5a9d942e26907dc87659853d70af9daaa14eeb43e01b9ff5cf9684cf35310"
-    TYLT_V2_REDIS_URL: "redis://localhost:6379"
+    TYLT_V2_REDIS_URL: "redis://{{ docker_host }}:6379"
     TYLT_V2_REDIS_PWD: ""
-    TYLT_REMOTE_REDIS_URL: "redis://localhost:6379"
-    REMOTE_REDIS_URL: "redis://localhost:6379"
+    TYLT_REMOTE_REDIS_URL: "redis://{{ docker_host }}:6379"
+    REMOTE_REDIS_URL: "redis://{{ docker_host }}:6379"
     TYLT_REMOTE_REDIS_PWD: ""
     TYLT_REMOTE_PG_HOST: "{{ docker_host }}"
   
