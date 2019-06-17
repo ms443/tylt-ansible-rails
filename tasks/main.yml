@@ -145,7 +145,7 @@
     - /root/.bashrc
 
 - name: Run unit tests
-  shell: bundle exec rake db:test:prepare --trace && bundle exec rspec --trace
+  shell: RAILS_ENV=test bundle exec rake db:test:prepare --trace && RAILS_ENV=test bundle exec rspec --trace
   args:
     executable: /bin/bash
     chdir: /var/www
