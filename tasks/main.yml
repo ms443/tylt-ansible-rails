@@ -145,7 +145,7 @@
     - /root/.bashrc
 
 - name: Run unit tests
-  shell: netstat
+  shell: ping {{ docker_host }} 
   args:
     executable: /bin/bash
     chdir: /var/www
