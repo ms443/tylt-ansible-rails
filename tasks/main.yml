@@ -145,7 +145,7 @@
     - /root/.bashrc
 
 - name: Run unit tests
-  shell: ping $TYLT_REMOTE_PG_HOST
+  shell: bundle exec rake db:test:prepare
   args:
     executable: /bin/bash
     chdir: /var/www
