@@ -162,6 +162,7 @@
     TYLT_REMOTE_REDIS_PWD: ""
     TYLT_REMOTE_PG_HOST: "{{ docker_host }}"
     DISABLE_DATABASE_ENVIRONMENT_CHECK: "1"
+    DATABASE_URL: "postgres://{{ docker_host }}:5432"
   
 - name: Remove unnecessary packages
   apk:
