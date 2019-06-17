@@ -145,7 +145,7 @@
     - /root/.bashrc
 
 - name: Run unit tests
-  shell: bundle exec rspec 
+  shell: bundle exec rake db:test:prepare && bundle exec rspec 
   args:
     executable: /bin/bash
   
