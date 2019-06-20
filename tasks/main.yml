@@ -166,6 +166,10 @@
     DATABASE_CLEANER_ALLOW_PRODUCTION: "true"
     DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
     
+- name: Install packages based on package.json.
+  yarn:
+    path: /var/www
+    
 - name: Run unit tests
   shell: bundle exec rspec
   args:
