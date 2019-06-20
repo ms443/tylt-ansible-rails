@@ -166,7 +166,7 @@
     DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
     
 - name: Run unit tests
-  shell: bundle exec rspec
+  shell: bundle exec rspec -w
   args:
     executable: /bin/bash
     chdir: /var/www
