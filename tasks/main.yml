@@ -165,10 +165,12 @@
     SELENIUM_APP_HOST: "{{ docker_host }}"
     DATABASE_CLEANER_ALLOW_PRODUCTION: "true"
     DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
-    
+        
 - name: Install packages based on package.json.
-  yarn:
-    path: /var/www
+  shell: yarn install
+  args:
+    executable: /bin/bash
+    chdir: /var/www
     
 - name: Run unit tests
   shell: bundle exec rspec
