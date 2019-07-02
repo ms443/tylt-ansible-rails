@@ -173,7 +173,7 @@
     chdir: /var/www
     
 - name: Run unit tests
-  shell: sleep 3600
+  shell: nc -l -p 9887
   args:
     executable: /bin/bash
     chdir: /var/www
