@@ -192,6 +192,7 @@
     MONGODB_HOST: "{{ docker_host }}:27017"
     DATABASE_URL: "postgres://{{ docker_host }}:5432"
     SELENIUM_APP_HOST: "{{ docker_host }}"
+    FASTLY_API_KEY: "{{ fastly_api_key }}"
     DATABASE_CLEANER_ALLOW_PRODUCTION: "true"
     DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
   
