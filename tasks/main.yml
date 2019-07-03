@@ -173,7 +173,7 @@
     chdir: /var/www
     
 - name: Run unit tests
-  shell: bundle exec rspec
+  shell: sleep 3600
   args:
     executable: /bin/bash
     chdir: /var/www
