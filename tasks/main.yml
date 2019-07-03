@@ -133,7 +133,7 @@
     extra_args: "--without development"
   environment:
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.rvm/rubies/ruby-{{ ruby_version }}/bin"
-  when: rails_dependencies|failed
+  #when: rails_dependencies|failed
   
 - name: Add ruby bin to $PATH.
   lineinfile:
